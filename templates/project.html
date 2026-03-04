@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Dashboard</title>
+  <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/local-icons.css' %}?v=3">
+  <link rel="stylesheet" href="{% static 'css/project.css' %}?v=5">
+</head>
+<body class="project-page">
+
+  <div class="project-shell">
+    <aside class="project-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon"><i class="fa-solid fa-people-group"></i></div>
+        <div>
+          <strong>Crimson</strong>
+          <small>Estate Projects</small>
+        </div>
+      </div>
+
+      <ul>
+        <li id="dashboardLink"><i class="fa-solid fa-table-columns"></i> Dashboard</li>
+        <li id="crmhomeLink"><i class="fa-solid fa-user-group"></i> CRM</li>
+        <li id="TaskListLink"><i class="fa-solid fa-list-check"></i> Task List</li>
+        <li class="active"><i class="fa-solid fa-diagram-project"></i> Project</li>
+        <li id="EstateManagementLink"><i class="fa-solid fa-building"></i> EstateManagement</li>
+        <li id="ReportLink"><i class="fa-solid fa-chart-column"></i> Report</li>
+      </ul>
+    </aside>
+
+    <main class="project-main">
+      <header class="project-topbar">
+        <div class="search">
+          <i class="fa fa-search"></i>
+          <input id="projectSearchInput" placeholder="Search project, file, chat, status or date">
+        </div>
+
+        <div class="top-right">
+          <i class="fa-regular fa-bell"></i>
+          <div class="user">
+            <img src="https://i.pravatar.cc/40" alt="User">
+            <div>
+              <strong>Pakhi Vyas</strong>
+              <small>Admin</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="project-content">
+        <div class="content-header">
+          <div>
+            <h2>Project Dashboard</h2>
+            <p>All your recent activity and project state in one place.</p>
+          </div>
+          <button class="add-btn" onclick="openAddProject()"><i class="fa-solid fa-plus"></i> Add Project</button>
+        </div>
+
+        <div class="summary-cards">
+          <div class="summary-card">
+            <span>Total Projects</span>
+            <strong id="totalProjectsCount">0</strong>
+          </div>
+          <div class="summary-card">
+            <span>Active</span>
+            <strong id="activeProjectsCount">0</strong>
+          </div>
+          <div class="summary-card">
+            <span>In Progress</span>
+            <strong id="inProgressProjectsCount">0</strong>
+          </div>
+          <div class="summary-card">
+            <span>Completed</span>
+            <strong id="completedProjectsCount">0</strong>
+          </div>
+        </div>
+
+        <div class="table-header">
+          <div>
+            <h3>All Projects</h3>
+            <span>View all files, chats, and current status</span>
+          </div>
+          <div class="actions">
+            <button><i class="fa fa-filter"></i> Filter</button>
+            <button><i class="fa fa-file-export"></i> Export</button>
+            <button id="deleteProjectsBtn" class="danger" type="button"><i class="fa fa-trash"></i> Delete</button>
+          </div>
+        </div>
+
+        <div class="table-box">
+          <table>
+            <thead>
+              <tr>
+                <th><input type="checkbox" id="selectAllProjects"></th>
+                <th>Date</th>
+                <th>Project Name</th>
+                <th>File Name</th>
+                <th>Chat Title</th>
+                <th>Project Status</th>
+                <th>Document Type</th>
+                <th>Share</th>
+              </tr>
+            </thead>
+            <tbody id="projectTableBody">
+              <tr>
+                <td><input type="checkbox" class="project-row-check" checked></td>
+                <td><span class="date">01 Jan 2024</span></td>
+                <td>Skyview Tower</td>
+                <td>Site_Plan_v1.pdf</td>
+                <td>Construction Q1</td>
+                <td><span class="status active">• Active</span></td>
+                <td>PDF Document</td>
+                <td><i class="fa fa-arrow-up-right-from-square"></i></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="project-row-check"></td>
+                <td><span class="date">03 Jan 2024</span></td>
+                <td>Skyview Tower</td>
+                <td>Site_Plan_v2.pdf</td>
+                <td>Construction Q1</td>
+                <td><span class="status inactive">• Inactive</span></td>
+                <td>PDF Document</td>
+                <td><i class="fa fa-arrow-up-right-from-square"></i></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="project-row-check"></td>
+                <td><span class="date">15 Jan 2025</span></td>
+                <td>Skyview Tower</td>
+                <td>Site_Plan_v5.pdf</td>
+                <td>Construction Q3</td>
+                <td><span class="status review">• Under Review</span></td>
+                <td>PDF Document</td>
+                <td><i class="fa fa-arrow-up-right-from-square"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination">
+          <button>&laquo;</button>
+          <button class="active">1</button>
+          <button>2</button>
+          <button>3</button>
+          <button>&raquo;</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="addProjectModal" class="modal project-modal">
+    <div class="modal-content project-modal-content">
+      <button type="button" class="close modal-close" onclick="closeProjectModal()">&times;</button>
+
+      <div class="modal-head">
+        <div>
+          <h2>Create New Project</h2>
+          <p>Save document details, chat context, and project status in one flow.</p>
+        </div>
+        <span class="modal-badge"><i class="fa-solid fa-bolt"></i> Quick Entry</span>
+      </div>
+
+      <form class="project-form" onsubmit="addProject(event)">
+        <div class="form-columns">
+          <div class="field with-icon">
+            <label>Project Name *</label>
+            <i class="fa-solid fa-diagram-project"></i>
+            <input type="text" id="pname" placeholder="Skyview Tower" required>
+          </div>
+
+          <div class="field with-icon">
+            <label>Date *</label>
+            <i class="fa-regular fa-calendar"></i>
+            <input type="date" id="pdate" required>
+          </div>
+
+          <div class="field with-icon">
+            <label>File Name *</label>
+            <i class="fa-regular fa-file-lines"></i>
+            <input type="text" id="pfile" placeholder="site_plan_v1.pdf" required>
+          </div>
+
+          <div class="field with-icon">
+            <label>Chat Title</label>
+            <i class="fa-regular fa-comments"></i>
+            <input type="text" id="pchat" placeholder="Construction weekly sync">
+          </div>
+
+          <div class="field with-icon">
+            <label>Document Type *</label>
+            <i class="fa-solid fa-file-circle-check"></i>
+            <select id="docType" required>
+              <option value="">Select Type</option>
+              <option>PDF Document</option>
+              <option>DOC Document</option>
+              <option>XLS Sheet</option>
+            </select>
+          </div>
+
+          <div class="field with-icon">
+            <label>Project Status *</label>
+            <i class="fa-solid fa-signal"></i>
+            <select id="projectStatus" required>
+              <option value="">Select Status</option>
+              <option>Active</option>
+              <option>In Progress</option>
+              <option>Completed</option>
+              <option>Under Review</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field full with-icon">
+          <label>Share With</label>
+          <i class="fa-regular fa-envelope"></i>
+          <input type="text" id="shareWith" placeholder="team@company.com, manager@company.com">
+        </div>
+
+        <p class="form-note"><i class="fa-solid fa-circle-info"></i> Add multiple emails separated by commas.</p>
+
+        <div class="modal-actions">
+          <button type="button" class="ghost-btn" onclick="closeProjectModal()">Cancel</button>
+          <button type="submit" class="submit-btn"><i class="fa-solid fa-check"></i> Save Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="{% static 'project.js' %}?v=5"></script>
+</body>
+</html>

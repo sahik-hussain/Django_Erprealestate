@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services</title>
+  <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/local-icons.css' %}?v=3">
+  <link rel="stylesheet" href="{% static 'css/services.css' %}?v=2">
+</head>
+<body>
+  <div class="service-shell">
+    <section class="service-hero">
+      <div class="service-topline">
+        <div><i class="fa-solid fa-phone-volume"></i> +1 2345 6789</div>
+        <div><i class="fa-solid fa-location-dot"></i> 1001 Main Street Ave, San Francisco, CA</div>
+        <div class="service-social">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <div class="service-nav">
+        <div class="service-logo">CRIMSON</div>
+        <div class="service-links">
+          <a href="{% url 'crmhome' %}">Properties</a>
+          <a href="{% url 'user-contact' %}">Contact</a>
+          <a href="{% url 'services-page' %}" class="active">Services</a>
+          <a href="#">Projects</a>
+          <a href="{% url 'login-page' %}">Login</a>
+        </div>
+        <a class="book-btn" href="{% url 'crmhome' %}">BOOK A CALL</a>
+      </div>
+
+      <div class="service-hero-title">
+        <h1>Property Services</h1>
+        <p>Professional support for buying, renting, selling, and managing homes.</p>
+      </div>
+    </section>
+
+    <section class="service-content">
+      <div class="service-form-wrap">
+        <div class="service-form-image">
+          <img src="{% static 'images/man3.jpg.jpg' %}" alt="Service Engineer">
+        </div>
+
+        <div class="service-form-box">
+          <h5>Get In Touch</h5>
+          <h2>Any Question?<br>Write Down And Send Us</h2>
+
+          <form>
+            <input type="text" placeholder="Enter your full name">
+            <input type="text" placeholder="Phone number">
+            <input type="email" placeholder="Your email">
+            <input type="text" placeholder="Service Description">
+            <textarea placeholder="Message"></textarea>
+            <button type="button" class="quote-btn">GET A FREE QUOTE</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="service-feature-grid">
+        <div class="service-feature">
+          <i class="fa-solid fa-house"></i>
+          <h4>Verified Listings</h4>
+          <p>Curated property data with verified locations and pricing insights.</p>
+        </div>
+        <div class="service-feature">
+          <i class="fa-solid fa-key"></i>
+          <h4>Lease Management</h4>
+          <p>End-to-end support for rental workflows, renewals, and tenant communication.</p>
+        </div>
+        <div class="service-feature">
+          <i class="fa-solid fa-chart-line"></i>
+          <h4>Investment Advice</h4>
+          <p>Market-driven suggestions for long-term returns and portfolio growth.</p>
+        </div>
+      </div>
+
+      <div class="service-cards">
+        <div class="service-card">
+          <h4><i class="fa-solid fa-building"></i> Main Office</h4>
+          <p>San Francisco, CA</p>
+          <p>29 Reynolds Neck Str. 50121</p>
+        </div>
+
+        <div class="service-card">
+          <h4><i class="fa-solid fa-phone"></i> Make a Call</h4>
+          <p>+1 2345 678</p>
+          <p>Mon - Sat: 09am - 06pm</p>
+        </div>
+
+        <div class="service-card">
+          <h4><i class="fa-solid fa-envelope"></i> Send a Mail</h4>
+          <p>info@examplecrm.com</p>
+          <p>support@examplecrm.com</p>
+        </div>
+      </div>
+
+      <div class="map-wrap">
+        <iframe
+          src="https://maps.google.com/maps?q=San%20Francisco&t=&z=11&ie=UTF8&iwloc=&output=embed"
+          title="Map"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </section>
+
+    <footer class="service-footer">
+      <div class="service-footer-grid">
+        <div>
+          <h4>About</h4>
+          <p>Crimson supports modern real-estate teams with practical tools and reliable customer service.</p>
+          <p>From property discovery to final closure, we simplify your complete property journey.</p>
+        </div>
+
+        <div>
+          <h4>Quick Links</h4>
+          <p><a href="{% url 'crmhome' %}">Properties</a></p>
+          <p><a href="{% url 'services-page' %}">Services</a></p>
+          <p><a href="{% url 'login-page' %}">Login</a></p>
+          <p><a href="{% url 'user-contact' %}">Contact</a></p>
+        </div>
+
+        <div>
+          <h4>Our Service</h4>
+          <p>Property Buying Support</p>
+          <p>Rental Advisory</p>
+          <p>Sales Strategy</p>
+          <p>Portfolio Consulting</p>
+        </div>
+
+        <div>
+          <h4>Free Estimate</h4>
+          <p>Call Us: +1 2345 678</p>
+          <p>Get an expert consultation for your next property decision.</p>
+          <p>Mon - Sat: 09am - 06pm</p>
+        </div>
+      </div>
+
+      <div class="service-footer-bottom">
+        <span>Copyright (c) 2026 Crimson Estate</span>
+        <span>Powered by Crimson CRM</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

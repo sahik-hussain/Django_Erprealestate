@@ -1,0 +1,301 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
+}
+
+body{
+  background:#eef1f6;
+}
+
+/* TOPBAR */
+.topbar{
+  height:60px;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  border-bottom:1px solid #ddd;
+}
+
+.logo{
+  background:#2f80ed;
+  color:white;
+  padding:8px;
+  border-radius:8px;
+  width: 40px;
+  height: fit-content;
+}
+
+.search{
+  background:#e9edf3;
+  padding:8px 15px;
+  border-radius:20px;
+}
+
+.search input{
+  border:none;
+  outline:none;
+  background:none;
+}
+
+.avatar{
+  border-radius:50%;
+}
+
+/* LAYOUT */
+.layout{
+  display:flex;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:220px;
+  background:white;
+  padding:20px;
+  height:calc(100vh - 60px);
+}
+
+.menu{
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:8px;
+  cursor:pointer;
+}
+
+.menu.active{
+  background:#d8e8ff;
+  color:#2f80ed;
+}
+
+/* CONTENT */
+.content{
+  flex:3;
+  padding:20px;
+}
+
+.tabs{
+  margin:10px 0;
+}
+
+.tab{
+  padding:8px 18px;
+  border:none;
+  border-radius:20px;
+  background:#e9edf3;
+  margin-right:10px;
+}
+
+.tab.active{
+  background:#2f80ed;
+  color:white;
+}
+
+.task-header{
+  display:flex;
+  justify-content:space-between;
+  margin:15px 0;
+}
+
+.btn{
+  padding:6px 12px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  background:white;
+}
+
+.blue{
+  background:#2f80ed;
+  color:white;
+  border:none;
+}
+
+.table-box{
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,td{
+  padding:15px;
+  text-align:left;
+}
+
+thead{
+  background:#f2f4f7;
+}
+
+.status{
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:13px;
+}
+
+.done{
+  background:#cfead9;
+}
+
+.pending{
+  background:#ffd8c7;
+}
+
+/* RIGHT PANEL */
+.contacts-panel {
+  width: 320px;
+  padding: 15px;
+  background: #eef1f6;
+}
+
+.contacts-panel h3 {
+  margin-bottom: 10px;
+  color: #3a3a3a;
+}
+
+.quick-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  color: #6b7280;
+}
+
+.icons i {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* CARD BASE */
+.contact-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* BIG CARD */
+.big {
+  background: #dfe3ea;
+}
+
+.sale-badge {
+  background: #8b9099;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.time {
+  color: #6b7280;
+}
+
+.bottom-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.chip {
+  background: #f2f4f7;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.plus {
+  background: #c7ccd6;
+  padding: 6px 10px;
+  border-radius: 50%;
+}
+
+/* SMALL CARDS */
+.small {
+  background: #e7ebf2;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  background: #c7ccd6;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.action-icons i {
+  margin-left: 8px;
+  cursor: pointer;
+  background: white;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.bottom-tags {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.tag {
+  background: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.status {
+  background: #e6f7ec;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  border-color: #22c55e;
+  color:#22c55e;
+}
+.status.pending {
+  background-color: #fff7ed;   /* light orange background */
+  border: 1px solid #f59e0b;   /* border color */
+  color: #f59e0b;              /* text color */
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+/* ADD TASK BUTTON */
+.add-btn{
+  background-color:#3b82f6;   /* blue */
+  color:white;
+  border:none;
+  padding:10px 18px;
+  border-radius:8px;
+  font-size:14px;
+  cursor:pointer;
+  box-shadow:0 4px 8px rgba(0,0,0,0.1);
+}
+
+.add-btn:hover{
+  background-color:#2563eb;   /* dark blue hover */
+}
+
+.td.completed{
+  background: #e6f7ec;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    border-color: #22c55e;
+    color: #22c55e;
+}
+

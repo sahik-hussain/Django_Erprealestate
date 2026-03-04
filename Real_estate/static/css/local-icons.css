@@ -1,0 +1,60 @@
+.fa-solid,
+.fa-regular,
+.fa-brands,
+.fa {
+  display: inline-block;
+  width: 1.2em;
+  line-height: 1;
+  text-align: center;
+  font-style: normal;
+}
+
+.fa-solid.fa-people-group::before { content: "\1F465"; }
+.fa-regular.fa-bell::before { content: "\1F514"; }
+.fa-solid.fa-bell::before { content: "\1F514"; }
+.fa-solid.fa-gear::before { content: "\2699"; }
+.fa-solid.fa-table-columns::before { content: "\25A6"; }
+.fa-solid.fa-users::before { content: "\1F465"; }
+.fa-solid.fa-list-check::before { content: "\2611"; }
+.fa-solid.fa-diagram-project::before { content: "\25F0"; }
+.fa-solid.fa-building::before { content: "\1F3E2"; }
+.fa-solid.fa-chart-column::before { content: "\1F4CA"; }
+.fa-solid.fa-chart-line::before { content: "\1F4C8"; }
+.fa-solid.fa-user::before { content: "\1F464"; }
+.fa-solid.fa-house::before { content: "\1F3E0"; }
+.fa-solid.fa-magnifying-glass::before { content: "\1F50D"; }
+.fa-solid.fa-plus::before { content: "+"; font-weight: 700; }
+.fa-solid.fa-ellipsis-vertical::before { content: "\22EE"; }
+.fa-solid.fa-bed::before { content: "\1F6CF"; }
+.fa-solid.fa-bath::before { content: "\1F6C1"; }
+.fa-solid.fa-ban::before { content: "\26D4"; }
+.fa-solid.fa-circle-question::before { content: "?"; font-weight: 700; }
+.fa-regular.fa-circle-question::before { content: "?"; font-weight: 700; }
+.fa-solid.fa-clipboard::before { content: "\1F4CB"; }
+.fa-solid.fa-headphones::before { content: "\1F3A7"; }
+.fa-solid.fa-location-dot::before { content: "\1F4CD"; }
+.fa-regular.fa-location-dot::before { content: "\1F4CD"; }
+.fa-solid.fa-phone-flip::before { content: "\260E"; }
+.fa-solid.fa-phone-slash::before { content: "\1F6AB"; }
+.fa-solid.fa-rotate::before { content: "\21BB"; }
+.fa-solid.fa-user-plus::before { content: "\2795"; }
+.fa-solid.fa-user-group::before { content: "\1F465"; }
+.fa-solid.fa-folder::before { content: "\1F4C1"; }
+.fa-solid.fa-file-export::before { content: "\1F4E4"; }
+.fa-solid.fa-filter::before { content: "\1F5D0"; }
+.fa-solid.fa-trash::before { content: "\1F5D1"; }
+.fa-solid.fa-sliders::before { content: "\2692"; }
+.fa-solid.fa-phone::before { content: "\260E"; }
+.fa-solid.fa-arrow-up-right-from-square::before { content: "\2197"; }
+
+.fa.fa-search::before { content: "\1F50D"; }
+.fa.fa-filter::before { content: "\1F5D0"; }
+.fa.fa-trash::before { content: "\1F5D1"; }
+.fa.fa-sliders::before { content: "\2692"; }
+.fa.fa-phone::before { content: "\260E"; }
+.fa.fa-arrow-up-right-from-square::before { content: "\2197"; }
+
+.fa-brands.fa-x-twitter::before { content: "X"; }
+.fa-brands.fa-facebook-f::before { content: "f"; font-weight: 700; }
+.fa-brands.fa-instagram::before { content: "\25CE"; }
+.fa-brands.fa-linkedin-in::before { content: "in"; font-weight: 700; font-size: 0.85em; }

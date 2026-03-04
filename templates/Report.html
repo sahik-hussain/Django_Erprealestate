@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Report Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/local-icons.css' %}?v=3">
+    <link rel="stylesheet" href="{% static 'css/Report.css' %}?v=2">
+</head>
+<body class="report-page">
+
+    <div class="report-shell">
+        <aside class="report-sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon"><i class="fa-solid fa-people-group"></i></div>
+                <div>
+                    <strong>Crimson</strong>
+                    <small>Analytics</small>
+                </div>
+            </div>
+
+            <nav>
+                <a href="/index.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+                <a href="/crmhome/"><i class="fa-solid fa-users"></i> CRM</a>
+                <a href="/task-list/"><i class="fa-solid fa-list-check"></i> Task List</a>
+                <a href="/project/"><i class="fa-solid fa-diagram-project"></i> Project</a>
+                <a href="/estate/"><i class="fa-solid fa-building"></i> EstateManagement</a>
+                <a href="/report/" class="active"><i class="fa-solid fa-chart-column"></i> Report</a>
+            </nav>
+        </aside>
+
+        <main class="report-main">
+            <header class="report-topbar">
+                <div class="crumbs">Home / Dashboard / <b>Overview</b></div>
+                <div class="topbar-actions">
+                    <div class="search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="reportSearchInput" placeholder="Search property, type, client, amount, status">
+                    </div>
+                    <i class="fa-solid fa-gear"></i>
+                    <div class="bell-wrap">
+                        <i class="fa-solid fa-bell"></i>
+                        <span>4</span>
+                    </div>
+                    <img src="https://i.pravatar.cc/40?img=12" alt="User">
+                </div>
+            </header>
+
+            <div class="quick-actions">
+                <button class="add-report-btn" onclick="openModal()"><i class="fa-solid fa-plus"></i> Add Report</button>
+                <button class="add-report-btn secondary"><i class="fa-solid fa-file-export"></i> Export Report</button>
+            </div>
+
+            <section class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-head">
+                        <span>Total Properties</span>
+                        <div class="metric-icon blue"><i class="fa-solid fa-building"></i></div>
+                    </div>
+                    <strong>1,234</strong>
+                    <p><b>+12.5%</b> vs last quarter</p>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-head">
+                        <span>Total Revenue</span>
+                        <div class="metric-icon green"><i class="fa-solid fa-chart-column"></i></div>
+                    </div>
+                    <strong>$45.2M</strong>
+                    <p><b>+18.2%</b> vs last quarter</p>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-head">
+                        <span>Active Listings</span>
+                        <div class="metric-icon violet"><i class="fa-solid fa-list-check"></i></div>
+                    </div>
+                    <strong>342</strong>
+                    <p class="negative"><b>-5.4%</b> vs last quarter</p>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-head">
+                        <span>Total Clients</span>
+                        <div class="metric-icon orange"><i class="fa-solid fa-users"></i></div>
+                    </div>
+                    <strong>8,945</strong>
+                    <p><b>+23.1%</b> vs last quarter</p>
+                </div>
+            </section>
+
+            <section class="chart-grid">
+                <div class="card">
+                    <h3>Property Sales Trends</h3>
+                    <p>Monthly sales and listings comparison</p>
+                    <div class="chart-container"><canvas id="lineChart"></canvas></div>
+                </div>
+
+                <div class="card">
+                    <h3>Property Distribution</h3>
+                    <p>By property type</p>
+                    <div class="chart-container pie"><canvas id="pieChart"></canvas></div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h3>Revenue & Expenses Analysis</h3>
+                <p>Monthly financial performance (in millions)</p>
+                <div class="chart-container bar"><canvas id="barChart"></canvas></div>
+            </section>
+
+            <section class="card table-card">
+                <div class="table-head">
+                    <div>
+                        <h3>Recent Transactions</h3>
+                        <p id="reportSearchSummary" style="margin-top:4px;color:#69809f;font-size:12px;">Showing all details</p>
+                    </div>
+                    <button>View All</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Property</th>
+                                <th>Type</th>
+                                <th>Client</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reportTableBody">
+                            <tr>
+                                <td>
+                                    <div class="primary">Luxury Villa Beverly Hills</div>
+                                    <div class="secondary">Beverly Hills, CA</div>
+                                </td>
+                                <td class="type sale">Sale</td>
+                                <td>Sarah Johnson</td>
+                                <td class="amount">$4,250,000</td>
+                                <td><span class="status-badge status-complete">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="primary">Downtown Office Space</div>
+                                    <div class="secondary">Manhattan, NY</div>
+                                </td>
+                                <td class="type lease">Lease</td>
+                                <td>Tech Corp Inc</td>
+                                <td class="amount">$125,000</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="primary">Suburban Family Home</div>
+                                    <div class="secondary">Austin, TX</div>
+                                </td>
+                                <td class="type sale">Sale</td>
+                                <td>Michael Brown</td>
+                                <td class="amount">$875,000</td>
+                                <td><span class="status-badge status-complete">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="primary">Warehouse Complex</div>
+                                    <div class="secondary">Austin, TX</div>
+                                </td>
+                                <td class="type sale">Sale</td>
+                                <td>Logichain Solutions</td>
+                                <td class="amount">$2,100,000</td>
+                                <td><span class="status-badge status-complete">Completed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="reportModal" class="modal">
+        <div class="modal-box report-modal-box">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-headline">
+                <h2>Add Report</h2>
+                <p>Create a transaction report row with property and client details.</p>
+            </div>
+
+            <form class="report-form-grid" onsubmit="return submitReportForm(event);">
+                <div class="field">
+                    <label for="property">Property *</label>
+                    <input type="text" id="property" placeholder="Luxury Villa Beverly Hills" required>
+                </div>
+
+                <div class="field">
+                    <label for="type">Type *</label>
+                    <select id="type" required>
+                        <option value="">Select Type</option>
+                        <option value="Sale">Sale</option>
+                        <option value="Lease">Lease</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="client">Client *</label>
+                    <input type="text" id="client" placeholder="Client name" required>
+                </div>
+
+                <div class="field">
+                    <label for="amount">Amount *</label>
+                    <input type="text" id="amount" placeholder="4250000" required>
+                </div>
+
+                <div class="field full">
+                    <label for="status">Status</label>
+                    <select id="status">
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="ghost-btn" onclick="closeModal()">Cancel</button>
+                    <button class="submit-btn" type="submit">Save Report</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{% static 'Report.js' %}?v=6"></script>
+</body>
+</html>

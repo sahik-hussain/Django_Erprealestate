@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deals</title>
+<link rel="stylesheet" href="{% static 'css/deals.css' %}?v=3">
+</head>
+<body>
+
+<header class="deals-topbar">
+  <div class="topbar-title">
+    <h1>Deals Pipeline</h1>
+    <p>Track customer intent, stage movement, and final closures in one place.</p>
+  </div>
+  <button class="new-deal-btn" type="button" id="openDealFormBtn">+ New Deal</button>
+</header>
+
+{% comment %}  {% endcomment %}
+<main class="deals-main">
+  <section class="cards" id="dealsCards"></section>
+
+  <section class="steps" id="dealSteps">
+    <div class="step active" data-step="1"><div class="circle">1</div><span>New</span></div>
+    <div class="step" data-step="2"><div class="circle">2</div><span>Verified</span></div>
+    <div class="step" data-step="3"><div class="circle">3</div><span>Review</span></div>
+    <div class="step" data-step="4"><div class="circle">4</div><span>Pending</span></div>
+    <div class="step" data-step="5"><div class="circle">5</div><span>Closed</span></div>
+  </section>
+
+  <section class="deal-section">
+    <article class="deal-info">
+      <h3>Deal Information</h3>
+      <h4 id="detailPropertyTitle">No deal selected</h4>
+
+      <div class="grid">
+        <div><strong>Reference:</strong> <span id="detailReference">-</span></div>
+        <div><strong>Shared:</strong> <span id="detailShared">None</span></div>
+        <div><strong>Estimated Deal Date:</strong> <span id="detailEstimatedDate">-</span></div>
+        <div><strong>Actual Deal Date:</strong> <span id="detailActualDate">-</span></div>
+        <div><strong>Type:</strong> <span id="detailType">-</span></div>
+        <div><strong>Transaction:</strong> <span id="detailTransaction">-</span></div>
+        <div><strong>Buyer Type:</strong> <span id="detailBuyerType">-</span></div>
+        <div><strong>Finance:</strong> <span id="detailFinance">Mortgage</span></div>
+        <div><strong>Created By:</strong> <span id="detailCreatedBy">-</span></div>
+        <div><strong>Lead Reference:</strong> <span id="detailLeadReference">-</span></div>
+        <div><strong>Status:</strong> <span id="detailStatus">-</span></div>
+        <div><strong>Amount:</strong> <span id="detailAmount">-</span></div>
+      </div>
+    </article>
+
+    <aside class="images">
+      <div class="small-images">
+        <img src="{% static 'images/home1.jpg' %}" alt="Home 1">
+        <img src="{% static 'images/home2.jpg' %}" alt="Home 2">
+        <img src="{% static 'images/home3.jpg' %}" alt="Home 3">
+        <img src="{% static 'images/home5.jpg' %}" alt="Home 5">
+      </div>
+
+      <div class="big-images">
+        <img src="{% static 'images/home4.jpg' %}" alt="Home 4">
+        <img src="{% static 'images/home6.jpg' %}" alt="Home 6">
+      </div>
+    </aside>
+  </section>
+</main>
+
+<div class="deal-modal" id="dealFormModal" style="display:none;">
+  <div class="deal-modal-box">
+    <button type="button" class="deal-modal-close" id="closeDealFormBtn">&times;</button>
+    <h3>Create New Deal</h3>
+    <form id="dealForm" class="deal-form">
+      <label for="dealPropertyName">Property Name</label>
+      <input id="dealPropertyName" name="property_name" type="text" placeholder="e.g. Studio Damac Hills, Dubai" required>
+
+      <label for="dealClientName">Client Name</label>
+      <input id="dealClientName" name="client_name" type="text" placeholder="e.g. Ahmad Zayn" required>
+
+      <label for="dealTransactionType">Transaction Type</label>
+      <select id="dealTransactionType" name="transaction_type">
+        <option value="Sale">Sale</option>
+        <option value="Lease">Lease</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="dealAmount">Amount</label>
+      <input id="dealAmount" name="amount" type="number" min="0" step="0.01" placeholder="e.g. 1250000" required>
+
+      <label for="dealStatus">Status</label>
+      <select id="dealStatus" name="status">
+        <option value="Pending">Pending</option>
+        <option value="Completed">Completed</option>
+        <option value="Cancelled">Cancelled</option>
+      </select>
+
+      <div class="deal-form-actions">
+        <button type="button" class="cancel-btn" id="cancelDealBtn">Cancel</button>
+        <button type="submit" class="save-btn">Save Deal</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  window.DEALS_AVATAR_POOL = [
+    "{% static 'images/man1.jpg.jpg' %}",
+    "{% static 'images/man2.jpg.jpg' %}",
+    "{% static 'images/man3.jpg.jpg' %}",
+    "{% static 'images/man4.jpg.jpg' %}",
+    "{% static 'images/man5.jpg.jpg' %}"
+  ];
+</script>
+<script src="{% static 'deals.js' %}?v=1"></script>
+</body>
+</html>

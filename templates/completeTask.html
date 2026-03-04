@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CRM Task Dashboard</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/completeTask.css' %}">
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="left-top">
+    <div class="logo"><i class="fa fa-users"></i></div>
+    <span class="breadcrumb">Home / Dashboard / Overview</span>
+  </div>
+
+  <div class="search">
+    <i class="fa fa-search"></i>
+    <input type="text" placeholder="Search">
+  </div>
+
+  <div class="right-top">
+    <i class="fa fa-cog"></i>
+    <i class="fa fa-bell"></i>
+    <img src="https://i.pravatar.cc/40" class="avatar">
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+   <aside class="sidebar">
+  
+    <ul>
+      <li id="dashboardLink" class="menu-item">
+        <i class="fa-solid fa-table-columns"></i>
+        Dashboard
+     </li>
+      <li><i class="fa-solid fa-users"></i> CRM</li>
+      <li id="TaskListLink"><i class="fa-solid fa-list-check"></i> Task List</li>
+      <li id="projectLink"><i class="fa-solid fa-diagram-project"></i> Project</li>
+      <li id="EstateManagementLink"><i class="fa-solid fa-building"></i> EstateManagement</li>
+      <li><i class="fa-solid fa-chart-column"></i> Report</li>
+    </ul>
+  </aside>
+  <!-- MAIN CONTENT -->
+  <div class="content">
+
+    <h2>Task List</h2>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab" onclick="window.location.href='{% url 'task-list' %}'">Incomplete Task</button>
+      <button class="tab active">Complete Task</button>
+    </div>
+
+    <!-- Header Row -->
+    <div class="task-header">
+      <span>Mass Complete</span>
+      <div>
+        
+        <button class="add-btn" onclick="openAddTask()">Add Task +</button>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-box">
+      <table>
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Priority</th>
+             <th>Date</th>
+            <th>Status</th>
+            <th>Claer</th>
+          </tr>
+        </thead>
+          <tbody id="taskBody"></tbody>
+        <tbody>
+          <tr>
+            <td>Mike Smith<br><small>916-977-1991(m)</small></td>
+            <td>Normal</td>
+            <td>27/02/2025</td>
+            <td><span class="status done">Completed</span></td>
+          </tr>
+
+          <tr>
+            <td>Move in anniversary</td>
+            <td>Normal</td>
+            <td>07/02/2025</td>
+            <td><span class="status done">complete</span></td>
+          </tr>
+
+          <tr>
+            <td>Alex Carter</td>
+            <td>Normal</td>
+            <td>27/02/2025</td>
+            <td><span class="status done">Completed</span></td>
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <div class="contacts-panel">
+
+  <h3>All Contacts (398)</h3>
+
+  <div class="quick-header">
+    <span>Quick Connects</span>
+    <div class="icons">
+      <i class="fa fa-search"></i>
+      <i class="fa fa-sliders"></i>
+    </div>
+  </div>
+
+  <!-- BIG CARD -->
+  <div class="contact-card big">
+    <span class="sale-badge">Sale</span>
+
+    <h4>Big Residential</h4>
+    <p class="time">2:30 Pm</p>
+
+    <div class="bottom-row">
+      <button class="chip">Property viewed</button>
+      <span class="plus">+12</span>
+    </div>
+  </div>
+
+  <!-- SMALL CARD 1 -->
+  <div class="contact-card small">
+    <div class="top-row">
+      <div class="avatar"></div>
+      <div>
+        <h5>Adams andrew</h5>
+        <p>Customer Call</p>
+      </div>
+
+      <div class="action-icons">
+        <i class="fa fa-phone"></i>
+        <i class="fa fa-arrow-up-right-from-square"></i>
+      </div>
+    </div>
+
+    <div class="bottom-tags">
+      <span class="tag">Jessica Adams</span>
+      <span class="status">Created</span>
+    </div>
+  </div>
+
+  <!-- SMALL CARD 2 -->
+  <div class="contact-card small">
+    <div class="top-row">
+      <div class="avatar"></div>
+      <div>
+        <h5>Andrew,Sal</h5>
+        <p>Flow up mail</p>
+      </div>
+
+      <div class="action-icons">
+        <i class="fa fa-phone"></i>
+        <i class="fa fa-arrow-up-right-from-square"></i>
+      </div>
+    </div>
+
+    <div class="bottom-tags">
+      <span class="tag">Jessica Adams</span>
+      <span class="status">Was Assigned</span>
+    </div>
+  </div>
+
+  <!-- SMALL CARD 3 -->
+  <div class="contact-card small">
+    <div class="top-row">
+      <div class="avatar"></div>
+      <div>
+        <h5>Araujo,Stan</h5>
+        <p>Flow up mail</p>
+      </div>
+
+      <div class="action-icons">
+        <i class="fa fa-phone"></i>
+        <i class="fa fa-arrow-up-right-from-square"></i>
+      </div>
+    </div>
+
+    <div class="bottom-tags">
+      <span class="tag">Pat Attard</span>
+      <span class="status">Add Search</span>
+    </div>
+  </div>
+  
+</div>
+
+</div>
+<script>
+  function openAddTask() {
+    window.location.href = "{% url 'add-task' %}";
+  }
+
+  document.getElementById("dashboardLink").addEventListener("click", function(){
+    window.location.href = "{% url 'index-root' %}";
+  })
+  document.getElementById("TaskListLink").addEventListener("click", function () {
+      window.location.href = "{% url 'task-list' %}";
+    });
+  document.getElementById("projectLink").addEventListener("click",function(){
+    window.location.href = "{% url 'add-project' %}";
+  })
+  document.getElementById("EstateManagementLink").addEventListener("click",function(){
+    window.location.href = "{% url 'estate' %}";
+
+  })
+
+ 
+
+
+const data = JSON.parse(localStorage.getItem("taskData"));
+
+if (data) {
+  const tbody = document.getElementById("taskBody");
+
+  const tr = document.createElement("tr");
+  tr.classList.add("new-row");   // THIS LINE ADDS BACKGROUND COLOR
+
+  tr.innerHTML = `
+    <td>${data.subject}</td>
+    <td>${data.priority}</td>
+    <td>${data.date}</td>
+    <td>${data.status}</td>
+    <td><button onclick="deleteTask()">Delete</button></td>
+  `;
+
+  tbody.appendChild(tr);
+}
+
+function deleteTask() {
+  localStorage.removeItem("taskData");
+  document.getElementById("taskBody").innerHTML = "";
+}
+
+
+</script>
+</body>
+</html>

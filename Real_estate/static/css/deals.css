@@ -1,0 +1,463 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --ink-900: #10172c;
+  --ink-700: #34405d;
+  --ink-500: #64708d;
+  --line-200: #dde4f0;
+  --panel: #ffffff;
+  --canvas: #eef2fb;
+  --navy: #111f4a;
+  --accent: #df4b66;
+  --accent-soft: #ffe8ee;
+}
+
+body {
+  font-family: "Trebuchet MS", "Segoe UI", Verdana, sans-serif;
+  background:
+    radial-gradient(circle at 5% -10%, #dfe8ff 0%, rgba(223, 232, 255, 0) 34%),
+    radial-gradient(circle at 90% 120%, #e4f8ef 0%, rgba(228, 248, 239, 0) 30%),
+    var(--canvas);
+  color: var(--ink-900);
+}
+
+.deals-topbar {
+  width: min(1240px, calc(100% - 24px));
+  margin: 18px auto 0;
+  background: var(--panel);
+  border: 1px solid var(--line-200);
+  border-radius: 16px 16px 0 0;
+  border-bottom: none;
+  padding: 20px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
+.topbar-title h1 {
+  font-size: 30px;
+  margin-bottom: 6px;
+}
+
+.topbar-title p {
+  color: var(--ink-500);
+  font-size: 14px;
+}
+
+.new-deal-btn {
+  text-decoration: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #e95a73, #cb3956);
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.navbar {
+  width: min(1240px, calc(100% - 24px));
+  margin: 0 auto;
+  background: linear-gradient(90deg, #101e48, #142558);
+  border-radius: 0 0 16px 16px;
+  padding: 14px 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #d6def9;
+  font-size: 14px;
+  border-radius: 999px;
+  padding: 7px 12px;
+  transition: all 0.2s ease;
+}
+
+.navbar a:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.navbar a.active {
+  color: #fff;
+  background: rgba(223, 75, 102, 0.88);
+}
+
+.deals-main {
+  width: min(1240px, calc(100% - 24px));
+  margin: 14px auto 24px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line-200);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+  box-shadow: 0 8px 20px rgba(16, 28, 61, 0.07);
+}
+
+.card.deal-card {
+  cursor: pointer;
+}
+
+.card.deal-card.selected {
+  border-color: #79a5ff;
+  box-shadow: 0 12px 24px rgba(24, 78, 190, 0.16);
+}
+
+.card img {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e8edf7;
+}
+
+.info {
+  flex: 1;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.top h3 {
+  font-size: 18px;
+}
+
+.top span {
+  color: var(--ink-500);
+  font-size: 12px;
+}
+
+.contact {
+  color: var(--ink-700);
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.deal-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  gap: 8px;
+}
+
+.amount {
+  color: #1f6feb;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.status-pill {
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.status-pill.pending {
+  background: #fff4dc;
+  color: #ab7a00;
+}
+
+.status-pill.completed {
+  background: #e5f8ee;
+  color: #0f8f4b;
+}
+
+.status-pill.cancelled {
+  background: #fee8ea;
+  color: #b6283a;
+}
+
+.btns {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.btns button {
+  border: 1px solid #d9dfec;
+  background: #f7f9fe;
+  color: #2f3c5b;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 12px;
+}
+
+.steps {
+  margin-top: 14px;
+  background: var(--panel);
+  border: 1px solid var(--line-200);
+  border-radius: 14px;
+  padding: 14px 12px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.step {
+  text-align: center;
+  position: relative;
+}
+
+.step .circle {
+  width: 34px;
+  height: 34px;
+  margin: 0 auto 6px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  background: #8fa2c7;
+}
+
+.step span {
+  font-size: 12px;
+  color: var(--ink-700);
+  font-weight: 700;
+}
+
+.step.active .circle {
+  background: linear-gradient(135deg, #2b7fff, #1f6feb);
+}
+
+.step.done .circle {
+  background: linear-gradient(135deg, #24b06f, #18945c);
+}
+
+.deal-section {
+  margin-top: 14px;
+  background: var(--panel);
+  border: 1px solid var(--line-200);
+  border-radius: 14px;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 16px;
+}
+
+.deal-info h3 {
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.deal-info h4 {
+  color: var(--ink-700);
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+}
+
+.grid div {
+  border: 1px solid #e8edf7;
+  border-radius: 10px;
+  background: #fafcff;
+  padding: 10px 12px;
+  color: #2d3b59;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.grid span {
+  font-weight: 700;
+}
+
+.images {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.small-images {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.small-images img {
+  width: 100%;
+  height: 88px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.big-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.big-images img {
+  width: 100%;
+  height: 228px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.empty-deals {
+  grid-column: 1 / -1;
+  background: #fff;
+  border: 1px dashed #c4cfdf;
+  border-radius: 14px;
+  padding: 18px;
+  color: #607089;
+  text-align: center;
+}
+
+.deal-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(6, 12, 24, 0.56);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deal-modal-box {
+  width: min(560px, 100%);
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #d9e2f0;
+  padding: 18px 18px 16px;
+  position: relative;
+}
+
+.deal-modal-box h3 {
+  margin-bottom: 14px;
+}
+
+.deal-modal-close {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  color: #556078;
+}
+
+.deal-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.deal-form label {
+  font-size: 13px;
+  color: #46536f;
+  font-weight: 700;
+}
+
+.deal-form input,
+.deal-form select {
+  height: 42px;
+  border: 1px solid #d5deec;
+  border-radius: 10px;
+  padding: 0 12px;
+  background: #fbfdff;
+  color: #1f2a44;
+}
+
+.deal-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.deal-form-actions button {
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.deal-form-actions .cancel-btn {
+  background: #edf1f8;
+  color: #3b4967;
+}
+
+.deal-form-actions .save-btn {
+  background: linear-gradient(135deg, #2b7fff, #1f6feb);
+  color: #fff;
+}
+
+@media (max-width: 1120px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .deal-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .deals-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 16px;
+    border-bottom: 1px solid var(--line-200);
+  }
+
+  .navbar {
+    border-radius: 12px;
+    margin-top: 10px;
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .big-images {
+    grid-template-columns: 1fr;
+  }
+
+  .big-images img {
+    height: 210px;
+  }
+}

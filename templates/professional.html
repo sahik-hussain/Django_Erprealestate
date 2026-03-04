@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Registration - Step 2</title>
+<link rel="stylesheet" href="{% static 'css/professional.css' %}?v=2">
+</head>
+<body>
+  <div class="professional-shell">
+    <header class="professional-header">
+      <div>
+        <p class="crumbs">
+          <a href="{% url 'index-html' %}">Dashboard</a> /
+          <a href="{% url 'crmhome' %}">Property</a> /
+          Agent Registration
+        </p>
+        <h1>New Agent Registration</h1>
+        <p class="subtitle">Complete all sections to register a new real estate agent.</p>
+      </div>
+      <div class="header-actions">
+        <a class="header-btn secondary" href="{% url 'crmhome' %}">Go to Property</a>
+        <a class="header-btn" href="{% url 'index-html' %}">Back to Dashboard</a>
+      </div>
+    </header>
+
+    <div class="tabs">
+      <div class="tab" onclick="window.location='/Agent.html'">Personal</div>
+      <div class="tab active">Professional</div>
+      <div class="tab" onclick="window.location='/Company.html'">Company</div>
+    </div>
+
+    <section class="card">
+      <div class="step-row">
+        <div class="step-chip">Step 2</div>
+        <h3>Professional Information</h3>
+      </div>
+
+      <form>
+        <div class="form-grid">
+          <div class="field">
+            <label>License Number *</label>
+            <input type="text" placeholder="RE123456">
+          </div>
+          <div class="field">
+            <label>License State *</label>
+            <input type="text" placeholder="California">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="field">
+            <label>License Expiry Date *</label>
+            <input type="date">
+          </div>
+          <div class="field">
+            <label>Years Of Experience *</label>
+            <input type="number" placeholder="5">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Specialization *</label>
+          <input type="text" placeholder="Residential, Commercial, Luxury Homes">
+        </div>
+
+        <div class="field">
+          <label>Languages Spoken</label>
+          <input type="text" placeholder="English, Spanish, Mandarin">
+        </div>
+
+        <div class="field">
+          <label>Certifications</label>
+          <input type="text" placeholder="ABR, CRS, CRI">
+        </div>
+
+        <div class="actions">
+          <button type="button" class="prev-btn" onclick="window.location='/Agent.html'">Previous</button>
+          <button type="button" class="next-btn" onclick="goCompanyInfo()">Next: Company Info</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script src="{% static 'Agent.js' %}?v=2"></script>
+</body>
+</html>

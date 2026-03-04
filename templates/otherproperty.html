@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Real Estate Management</title>
+  <link rel="stylesheet" href="{% static 'css/other.css' %}">
+</head>
+<body>
+  
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <h2 class="app-title" onclick="goHome()">
+  Real Estate Management
+</h2>
+
+  <div class="top-actions">
+    <a href="#">Subscription</a>
+    <a href="#">Edit This application</a>
+    <a href="#">Help</a>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->  
+  <div class="sidebar">
+    <div class="nav">
+      <button>Search Property</button>
+      <button class="active">Other Property</button>
+    </div>
+
+    <h4>All Property by Others</h4>
+
+    <!-- CARD -->
+    <div class="property-card active">
+      <img src="{% static 'images/flat.jpg' %}">
+      <div class="card-info">
+        <strong>Flat / Apartment</strong>
+        <p>4026, State Street, Detroit</p>
+        <span class="rent">Rent</span>
+        <span class="new">New Property</span>
+      </div>
+      <span class="dots">⋮</span>
+    </div>
+
+    <div class="property-card">
+      <img src="{% static 'images/shop.jpg' %}">
+      <div class="card-info">
+        <strong>Shop</strong>
+        <p>832, Brentwood Drive</p>
+        <span class="sale">Sale</span>
+        <span class="new">New Property</span>
+      </div>
+    </div>
+
+    <div class="property-card">
+      <img src="{% static 'images/villa.jpg' %}">
+      <div class="card-info">
+        <strong>House / Villa</strong>
+        <p>1472, Sycamore Lake Road</p>
+        <span class="sale">Sale</span>
+        <span class="new">New Property</span>
+      </div>
+    </div>
+
+    <div class="property-card">
+      <img src="{% static 'images/land.jpg' %}">
+      <div class="card-info">
+        <strong>Land</strong>
+        <p>2234, Oakmund Road</p>
+        <span class="sale">Sale</span>
+        <span class="new">New Property</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="content">
+
+    <div class="content-head">
+      <h3>Overview</h3>
+      <div>
+        <button>Edit</button>
+        <button>Duplicate</button>
+        <button>More</button>
+      </div>
+    </div>
+
+    <!-- OVERVIEW CARD -->
+    <div class="overview-box">
+      <img src="{% static 'images/flat.jpg' %}">
+      <div>
+        <strong>Rent</strong>
+        <p>4026, State Street, Detroit</p>
+      </div>
+    </div>
+
+    <h3 class="section">Property Details</h3>
+
+    <!-- DETAILS TABLE -->
+    <table>
+      <tr><th>Property Type</th><td>Flat / Apartment</td></tr>
+      <tr><th>Property Condition</th><td>New Property</td></tr>
+      <tr><th>Date</th><td>11-Jan-2026</td></tr>
+      <tr><th>Location</th><td>4206, State Street, Detroit, Michigan</td></tr>
+      <tr><th>Nearest Landmark</th><td>Super Market</td></tr>
+      <tr><th>City</th><td>Detroit</td></tr>
+      <tr><th>Total Area (sq ft)</th><td>750</td></tr>
+      <tr>
+        <th>View Enquiries</th>
+        <td><button class="blue">View Enquiries</button></td>
+      </tr>
+    </table>
+
+  </div>
+</div>
+<script>
+    function goHome() {
+      window.location.href = "estate.html";
+    }
+</script>
+
+</body>
+</html>
+

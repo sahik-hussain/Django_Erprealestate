@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Task</title>
+  <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/local-icons.css' %}?v=3">
+  <link rel="stylesheet" href="{% static 'css/Addtask.css' %}?v=3">
+</head>
+<body class="addtask-page">
+  <div class="addtask-shell">
+    <aside class="addtask-sidebar">
+      <div class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-list-check"></i></div>
+        <div>
+          <strong>Crimson</strong>
+          <small>Task Planner</small>
+        </div>
+      </div>
+
+      <nav>
+        <a href="/index.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+        <a href="/crmhome/"><i class="fa-solid fa-users"></i> CRM</a>
+        <a href="/task-list/" class="active"><i class="fa-solid fa-list-check"></i> Task List</a>
+        <a href="/project/"><i class="fa-solid fa-diagram-project"></i> Project</a>
+        <a href="/estate/"><i class="fa-solid fa-building"></i> Estate Management</a>
+        <a href="/report/"><i class="fa-solid fa-chart-column"></i> Report</a>
+      </nav>
+    </aside>
+
+    <main class="addtask-main">
+      <header class="addtask-topbar">
+        <div>
+          <h1>Create Task</h1>
+          <p>Add a new task with priority, timeline, and completion state.</p>
+        </div>
+        <a class="back-link" href="/task-list/"><i class="fa-solid fa-arrow-left"></i> Back to Task List</a>
+      </header>
+
+      <section class="addtask-card">
+        <form class="addtask-form" action="/task/create/" method="post">
+          {% csrf_token %}
+
+          <div class="field">
+            <label for="title">Subject *</label>
+            <input id="title" name="title" type="text" placeholder="Follow up with client" required>
+          </div>
+
+          <div class="field">
+            <label for="task_type">Type *</label>
+            <select id="task_type" name="task_type" required>
+              <option>General</option>
+              <option>Follow Up</option>
+              <option>Site Visit</option>
+              <option>Call</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="priority">Priority *</label>
+            <select id="priority" name="priority" required>
+              <option>Normal</option>
+              <option>High</option>
+              <option>Low</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="due_date">Due Date *</label>
+            <input id="due_date" name="due_date" type="date" required>
+          </div>
+
+          <div class="field">
+            <label for="status">Status *</label>
+            <select id="status" name="status" required>
+              <option>Pending</option>
+              <option>Not Started</option>
+              <option>Completed</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4" placeholder="Add short notes"></textarea>
+          </div>
+
+          <div class="actions">
+            <a class="btn ghost" href="/task-list/">Cancel</a>
+            <button class="btn primary" type="submit"><i class="fa-solid fa-check"></i> Save Task</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
+

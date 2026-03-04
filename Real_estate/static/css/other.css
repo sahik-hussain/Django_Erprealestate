@@ -1,0 +1,241 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  background: #f5f5f5;
+  color: #222;
+}
+
+/* ================= TOP HEADER ================= */
+.topbar {
+  height: 56px;
+  background: #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid #d6d6d6;
+}
+
+.topbar h2 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.top-actions a {
+  margin-left: 20px;
+  font-size: 14px;
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+/* ================= LAYOUT ================= */
+.layout {
+  display: flex;
+  height: calc(100vh - 56px);
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+  width: 320px;
+  background: #ffffff;
+  border-right: 1px solid #dcdcdc;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+/* Tabs */
+.nav {
+  display: flex;
+  margin-bottom: 12px;
+}
+/* NAV BUTTON DEFAULT */
+.nav button {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: #f4f4f4;
+  color: #000;              /* normal text */
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* ACTIVE (Search Property) */
+.nav button.active {
+  background: #1a73e8;      /* blue background */
+  color: #ffffff;           /* WHITE text */
+  border-color: #1a73e8;
+}
+
+
+/* Sidebar title */
+.sidebar h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 12px 0;
+}
+
+/* ================= PROPERTY CARD ================= */
+.property-card {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  margin-bottom: 10px;
+  background: #fff;
+  position: relative;
+  cursor: pointer;
+}
+
+.property-card.active {
+  border: 2px solid #1a73e8;
+}
+
+.property-card img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+/* Card text */
+.card-info strong {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.card-info p {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+/* Status text */
+.rent {
+  color: green;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.sale {
+  color: red;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.new {
+  margin-left: 10px;
+  font-size: 13px;
+  color: #000;
+}
+
+/* Three dots */
+.dots {
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  font-size: 18px;
+}
+
+/* ================= MAIN CONTENT ================= */
+.content {
+  flex: 1;
+  background: #ffffff;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Header inside content */
+.content-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.content-head h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.content-head button {
+  padding: 4px 10px;
+  font-size: 13px;
+  border: 1px solid #cfcfcf;
+  background: #fff;
+  cursor: pointer;
+  margin-left: 6px;
+}
+
+/* ================= OVERVIEW CARD ================= */
+.overview-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 420px;
+  border: 1px solid #cfcfcf;
+  padding: 12px;
+  margin-bottom: 20px;
+}
+
+.overview-box img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.overview-box strong {
+  font-size: 16px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.overview-box p {
+  font-size: 14px;
+}
+
+/* ================= SECTION TITLE ================= */
+.section {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 16px 0;
+}
+
+/* ================= TABLE ================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #cfcfcf;
+  padding: 12px;
+  font-size: 14px;
+}
+
+th {
+  width: 30%;
+  background: #f3f3f3;
+  font-weight: 600;
+}
+
+/* ================= BUTTON ================= */
+.blue {
+  background: #1a73e8;
+  color: #fff;
+  padding: 6px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+

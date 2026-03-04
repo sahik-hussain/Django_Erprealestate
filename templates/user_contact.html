@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact</title>
+  <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/local-icons.css' %}?v=3">
+  <link rel="stylesheet" href="{% static 'css/user-contact.css' %}?v=1">
+</head>
+<body class="user-contact-page">
+  <div class="contact-shell">
+    <header class="contact-topbar">
+      <div class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-building"></i></div>
+        <strong>HomeNest</strong>
+      </div>
+
+      <nav class="top-links">
+        <a href="{% url 'crmhome' %}">Home</a>
+        <a href="{% url 'services-page' %}">Services</a>
+        <a href="{% url 'crmhome' %}">Properties</a>
+        <a href="#">Blog</a>
+        <a href="{% url 'user-contact' %}" class="active">Contact</a>
+      </nav>
+
+      <div class="top-actions">
+        <a class="plain" href="{% url 'login-page' %}">Log in</a>
+        <a class="primary" href="{% url 'register-page' %}">Register</a>
+      </div>
+    </header>
+
+    <main class="contact-main">
+      <section class="heading-block">
+        <h1>Get in Touch</h1>
+        <p>We are here for anything you need. Send a quick message and our team will respond within 24 hours.</p>
+      </section>
+
+      <section class="help-grid">
+        <article class="help-card">
+          <div class="icon"><i class="fa-regular fa-user"></i></div>
+          <h3>Chat to Agent</h3>
+          <p>Speak to our friendly team</p>
+          <button type="button">Chat to Agent</button>
+        </article>
+
+        <article class="help-card">
+          <div class="icon"><i class="fa-regular fa-message"></i></div>
+          <h3>Chat to Support</h3>
+          <p>We are here to help</p>
+          <button type="button">Chat to Support</button>
+        </article>
+
+        <article class="help-card">
+          <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+          <h3>Visit Us</h3>
+          <p>Visit our office HQ</p>
+          <button type="button">Get Direction</button>
+        </article>
+
+        <article class="help-card">
+          <div class="icon"><i class="fa-solid fa-phone"></i></div>
+          <h3>Call Us</h3>
+          <p>Mon - Fri, from 8am to 5pm</p>
+          <button type="button">Call Our Agent</button>
+        </article>
+      </section>
+
+      <section class="heading-block message-heading">
+        <h2>Message Us</h2>
+        <p>We are here for anything you need. Send a quick message and our team will respond within 24 hours.</p>
+      </section>
+
+      <section class="message-panel">
+        <div class="image-side">
+          <img src="{% static 'images/home4.jpg' %}" alt="Contact property">
+        </div>
+
+        <form class="contact-form">
+          <label for="cName">Name</label>
+          <input id="cName" type="text" placeholder="Your Name">
+
+          <label for="cEmail">Email</label>
+          <input id="cEmail" type="email" placeholder="Email address">
+
+          <label for="cSubject">Subject</label>
+          <input id="cSubject" type="text" placeholder="Write your subject">
+
+          <label for="cMessage">Message</label>
+          <textarea id="cMessage" rows="6" placeholder="Write your messages"></textarea>
+
+          <button type="button" class="submit-btn">Contact Us</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="contact-footer">
+      <div class="footer-grid">
+        <div>
+          <h4>Top Cities</h4>
+          <a href="#">Los Angeles</a>
+          <a href="#">New York</a>
+          <a href="#">California</a>
+          <a href="#">San Diego</a>
+          <a href="#">San Francisco</a>
+        </div>
+
+        <div>
+          <h4>Menu</h4>
+          <a href="{% url 'crmhome' %}">Home</a>
+          <a href="{% url 'services-page' %}">Services</a>
+          <a href="{% url 'crmhome' %}">Properties</a>
+          <a href="#">Blog</a>
+          <a href="{% url 'user-contact' %}">Contact</a>
+        </div>
+
+        <div>
+          <h4>Useful Link</h4>
+          <a href="#">Buy a Home</a>
+          <a href="#">Rent a Home</a>
+          <a href="#">Sell Property</a>
+          <a href="#">Neighborhoods</a>
+        </div>
+
+        <div>
+          <h4>Company</h4>
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Cookie Preferences</a>
+        </div>
+
+        <div>
+          <h4>Account</h4>
+          <a href="{% url 'register-page' %}">Create Account</a>
+          <a href="{% url 'login-page' %}">Help Center</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="social">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+        <p>Copyright (c) 2026 Company all rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

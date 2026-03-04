@@ -1,0 +1,372 @@
+* {
+  box-sizing: border-box;
+}
+
+body.user-contact-page {
+  margin: 0;
+  font-family: "Trebuchet MS", "Segoe UI", Verdana, sans-serif;
+  color: #1b2235;
+  background:
+    radial-gradient(circle at 95% -10%, #d9e8ff 0%, rgba(217, 232, 255, 0) 38%),
+    radial-gradient(circle at -10% 110%, #dcf8eb 0%, rgba(220, 248, 235, 0) 32%),
+    #eef3fb;
+  padding: 18px 0;
+}
+
+.contact-shell {
+  width: min(1140px, calc(100% - 24px));
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid #d7e3f2;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 18px 44px rgba(12, 33, 62, 0.16);
+}
+
+.contact-topbar {
+  border-bottom: 1px solid #e4eaf4;
+  background: #f8fbff;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: #e8f1ff;
+  color: #2b6de0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.brand strong {
+  font-size: 17px;
+  color: #1c2f4d;
+}
+
+.top-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.top-links a {
+  text-decoration: none;
+  color: #516681;
+  font-size: 13px;
+  padding: 6px 9px;
+  border-radius: 999px;
+}
+
+.top-links a.active,
+.top-links a:hover {
+  background: #eaf2ff;
+  color: #1f6feb;
+}
+
+.top-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.top-actions a {
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.top-actions .plain {
+  color: #274061;
+}
+
+.top-actions .primary {
+  height: 30px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #2b7fff, #1f6feb);
+  color: #fff;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.contact-main {
+  padding: 28px;
+}
+
+.heading-block {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.heading-block h1,
+.heading-block h2 {
+  margin: 0 0 10px;
+  font-size: clamp(34px, 4vw, 56px);
+  line-height: 1.06;
+  color: #101828;
+}
+
+.heading-block h2 {
+  font-size: clamp(30px, 3.7vw, 52px);
+}
+
+.heading-block p {
+  max-width: 650px;
+  margin: 0 auto;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.help-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.help-card {
+  border: 1px solid #e2e8f5;
+  border-radius: 12px;
+  background: #fff;
+  padding: 14px;
+}
+
+.help-card .icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #edf2ff;
+  color: #6a81d2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.help-card h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  color: #1f2937;
+}
+
+.help-card p {
+  margin: 0 0 14px;
+  color: #7a8698;
+  font-size: 12px;
+}
+
+.help-card button {
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid #d5deef;
+  background: #fff;
+  color: #334e72;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 0 14px;
+}
+
+.message-heading {
+  margin-top: 34px;
+}
+
+.message-panel {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1.08fr;
+  gap: 18px;
+}
+
+.image-side {
+  border: 1px solid #e0e8f5;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.image-side img {
+  width: 100%;
+  height: 100%;
+  min-height: 470px;
+  object-fit: cover;
+  display: block;
+}
+
+.contact-form {
+  border: 1px solid #e0e8f5;
+  border-radius: 12px;
+  background: #fbfdff;
+  padding: 16px;
+}
+
+.contact-form label {
+  display: block;
+  margin: 0 0 6px;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid #d7e2f2;
+  border-radius: 8px;
+  background: #fff;
+  color: #111827;
+  font-size: 13px;
+  margin-bottom: 12px;
+  padding: 0 11px;
+}
+
+.contact-form input {
+  height: 42px;
+}
+
+.contact-form textarea {
+  padding-top: 10px;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #7fa8f8;
+  box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.12);
+}
+
+.submit-btn {
+  height: 38px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #2b7fff, #1f6feb);
+  color: #fff;
+  padding: 0 16px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.contact-footer {
+  margin-top: 26px;
+  border-top: 1px solid #e5ebf6;
+  padding: 22px 28px 18px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.footer-grid h4 {
+  margin: 0 0 10px;
+  color: #1f2937;
+  font-size: 14px;
+}
+
+.footer-grid a {
+  display: block;
+  margin: 0 0 8px;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.footer-grid a:hover {
+  color: #1f6feb;
+}
+
+.footer-bottom {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid #e7edf7;
+  text-align: center;
+}
+
+.social {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.social a {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #d6e1f2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b5576;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: #8a97aa;
+  font-size: 11px;
+}
+
+@media (max-width: 1080px) {
+  .help-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .message-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .image-side img {
+    min-height: 330px;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  body.user-contact-page {
+    padding: 8px 0;
+  }
+
+  .contact-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .top-links {
+    width: 100%;
+  }
+
+  .contact-main,
+  .contact-footer {
+    padding: 14px;
+  }
+
+  .help-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

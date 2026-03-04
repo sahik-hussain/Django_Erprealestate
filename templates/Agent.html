@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Registration</title>
+<link rel="stylesheet" href="{% static 'css/Agent.css' %}?v=3">
+</head>
+
+<body>
+  <div class="agent-shell">
+    <header class="agent-header">
+      <div>
+        <p class="crumbs"><a href="{% url 'index-html' %}">Dashboard</a> / <a href="{% url 'crmhome' %}">Property</a> / Agent Registration</p>
+        <h1>New Agent Registration</h1>
+        <p class="subtitle">Complete all sections to register a new real estate agent.</p>
+      </div>
+      <div class="header-actions">
+        <a class="header-btn secondary" href="{% url 'crmhome' %}">Go to Property</a>
+        <a class="header-btn" href="{% url 'index-html' %}">Back to Dashboard</a>
+      </div>
+    </header>
+
+    {% if request.GET.saved == "1" %}
+    <p class="status-msg success">Agent saved successfully. If a new login account was created, use Email + password: Agent@123</p>
+    {% elif request.GET.saved == "0" %}
+    <p class="status-msg error">Agent not saved. Please fill all required personal and professional fields, then try again.</p>
+    {% endif %}
+
+    <div class="tabs">
+      <a class="tab active" href="#personalInfo" data-target="personalInfo">Step 1: Personal</a>
+      <a class="tab" href="#professionalInfo" data-target="professionalInfo">Step 2: Professional</a>
+      <a class="tab" href="#agentsInfo" data-target="agentsInfo">Agents</a>
+    </div>
+
+    <section class="card" id="agentFormCard">
+      <form id="agentRegistrationForm" action="{% url 'agent-create' %}" method="post">
+        {% csrf_token %}
+
+        <div id="personalStep" class="agent-step active">
+          <div class="step-row" id="personalInfo">
+            <div class="step-chip">Step 1</div>
+            <h3>Personal Information</h3>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="firstName">First Name *</label>
+              <input type="text" id="firstName" name="first_name" placeholder="John" required>
+            </div>
+
+            <div class="field">
+              <label for="lastName">Last Name *</label>
+              <input type="text" id="lastName" name="last_name" placeholder="Doe" required>
+            </div>
+
+            <div class="field">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" placeholder="johndoe@gmail.com" required>
+            </div>
+
+            <div class="field">
+              <label for="phone">Phone Number *</label>
+              <input type="text" id="phone" name="phone" placeholder="+19(555)123-765" required>
+            </div>
+
+            <div class="field single">
+              <label for="dob">Date Of Birth *</label>
+              <input type="date" id="dob" name="dob" required>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="button" class="submit-btn" id="openProfessionalBtn">Next: Professional</button>
+          </div>
+        </div>
+
+        <div id="professionalStep" class="agent-step">
+          <div class="step-row" id="professionalInfo">
+            <div class="step-chip">Step 2</div>
+            <h3>Professional Information</h3>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="licenseNumber">License Number *</label>
+              <input type="text" id="licenseNumber" name="license_number" placeholder="RE123456" required>
+            </div>
+
+            <div class="field">
+              <label for="licenseState">License State *</label>
+              <input type="text" id="licenseState" name="license_state" placeholder="California" required>
+            </div>
+
+            <div class="field">
+              <label for="licenseExpiryDate">License Expiry Date *</label>
+              <input type="date" id="licenseExpiryDate" name="license_expiry_date" required>
+            </div>
+
+            <div class="field">
+              <label for="yearsOfExperience">Years Of Experience *</label>
+              <input type="number" id="yearsOfExperience" name="years_of_experience" min="0" placeholder="5" required>
+            </div>
+
+            <div class="field single">
+              <label for="specialization">Specialization *</label>
+              <input type="text" id="specialization" name="specialization" placeholder="Residential, Commercial, Luxury Homes" required>
+            </div>
+
+            <div class="field single">
+              <label for="languagesSpoken">Languages Spoken</label>
+              <input type="text" id="languagesSpoken" name="languages_spoken" placeholder="English, Spanish, Mandarin">
+            </div>
+
+            <div class="field single">
+              <label for="certifications">Certifications</label>
+              <input type="text" id="certifications" name="certifications" placeholder="ABR, CRS, CRI">
+            </div>
+          </div>
+
+          <input type="hidden" id="agentRole" name="role" value="Agent">
+          <p id="agentRegisterMessage" class="inline-msg"></p>
+
+          <div class="actions split">
+            <button type="button" class="header-btn secondary" id="backToPersonalBtn">Back: Personal</button>
+            <button type="submit" class="submit-btn">Save Agent</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="card" id="agentsInfo" style="margin-top: 14px; display: none;">
+      <div class="agents-header">
+        <div class="step-row">
+          <div class="step-chip">Agents</div>
+          <h3>Agents</h3>
+        </div>
+        <div class="agents-header-actions">
+          <button type="button" class="submit-btn add-agent-btn" id="addAgentBtn">Add One</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="agent-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Assigned</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for staff_user in staff_agents %}
+            <tr>
+              <td>{{ staff_user.name }}</td>
+              <td>{{ staff_user.username }}</td>
+              <td>{% if staff_user.email %}{{ staff_user.email }}{% else %}-{% endif %}</td>
+              <td>{% if staff_user.is_active %}Active{% else %}Inactive{% endif %}</td>
+              <td>{{ staff_user.assigned_property_count }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="view-details-btn view-agent-details-btn"
+                  data-target="agentDetails{{ forloop.counter }}"
+                  aria-expanded="false"
+                >
+                  View Details
+                </button>
+              </td>
+            </tr>
+            <tr id="agentDetails{{ forloop.counter }}" class="agent-details-row">
+              <td colspan="6" class="agent-details-cell">
+                <div class="agent-details-grid">
+                  <p><strong>Name:</strong> {{ staff_user.name }}</p>
+                  <p><strong>Username:</strong> {{ staff_user.username }}</p>
+                  <p><strong>Email:</strong> {% if staff_user.email %}{{ staff_user.email }}{% else %}-{% endif %}</p>
+                  <p><strong>Status:</strong> {% if staff_user.is_active %}Active{% else %}Inactive{% endif %}</p>
+                  <p><strong>User ID:</strong> {{ staff_user.id }}</p>
+                  <p><strong>Assigned Property Count:</strong> {{ staff_user.assigned_property_count }}</p>
+                  <div class="assigned-properties">
+                    <strong>Assigned Properties:</strong>
+                    {% if staff_user.assigned_properties %}
+                    <ul class="assigned-properties-list">
+                      {% for property_title in staff_user.assigned_properties %}
+                      <li>{{ property_title }}</li>
+                      {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p>No property assigned.</p>
+                    {% endif %}
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="6">No agents found.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="{% static 'Agent.js' %}?v=5"></script>
+</body>
+</html>

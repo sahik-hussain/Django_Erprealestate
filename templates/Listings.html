@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Listings Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Listings.css' %}?v=2">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="{% url 'crmhome' %}" class="nav-link">Home</a>
+        <a href="{% url 'lead' %}" class="nav-link">Leads</a>
+        <a href="{% url 'listings' %}" class="nav-link active">Listings</a>
+        <a href="{% url 'library' %}" class="nav-link">Library</a>
+        <a href="{% url 'contact' %}" class="nav-link">Contacts</a>
+        <a href="{% url 'deals' %}" class="nav-link">Deals</a>
+        <a href="{% url 'marketing' %}" class="nav-link">Marketing</a>
+    </div>
+</nav>
+
+<main class="page-wrap">
+    <header class="main-header">
+        <div>
+            <h1 class="logo-text">Listings</h1>
+            <p>Manage and review all available properties in one table.</p>
+        </div>
+        <div class="header-controls">
+            <div class="toggle-group">
+                <button class="btn-toggle active">Listing</button>
+                <button class="btn-toggle">Kanban</button>
+                <button class="menu-icon-btn"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <div class="filter-container">
+        <div class="filter-group">
+            <div class="select-wrapper"><i class="fa-solid fa-location-dot"></i><select><option>Community</option></select></div>
+            <div class="select-wrapper"><i class="fa-solid fa-location-pin"></i><select><option>Sub Community</option></select></div>
+            <div class="select-wrapper"><i class="fa-solid fa-house"></i><select><option>Property type</option></select></div>
+            <div class="select-wrapper"><i class="fa-solid fa-circle-dollar-to-slot"></i><select><option>Price Range</option></select></div>
+            <div class="select-wrapper"><i class="fa-solid fa-bed"></i><select><option>Bedrooms</option></select></div>
+            <div class="select-wrapper"><i class="fa-solid fa-envelope-open-text"></i><select><option>Sale type</option></select></div>
+            <div class="select-wrapper"><i class="fa-solid fa-maximize"></i><select><option>Size</option></select></div>
+            <div class="select-wrapper"><i class="fa-solid fa-users"></i><select><option>Agents</option></select></div>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search Property">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <button class="filters-btn"><i class="fa-solid fa-sliders"></i> Filters</button>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Address</th>
+                    <th>Web Ref</th>
+                    <th>Unit #</th>
+                    <th>Modified date</th>
+                    <th>Status</th>
+                    <th>Branch</th>
+                    <th>Allocated Agent</th>
+                    <th>Listing type</th>
+                    <th>Price</th>
+                    <th>Matching Leads</th>
+                    <th>Details</th>
+                    <th>Request</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td class="addr-cell">402 Dubai Creek Harbour</td>
+                    <td>RL2345</td>
+                    <td>125</td>
+                    <td>2024-01-30 09:30</td>
+                    <td><span class="status-pill invoiced">Invoiced</span></td>
+                    <td><strong>Sales Team 3</strong></td>
+                    <td class="agent-name">Cameron Williamson</td>
+                    <td><span class="type-pill for-sale">For Sale</span></td>
+                    <td class="price">AED 345,678.00</td>
+                    <td>12</td>
+                    <td><button class="btn-view">View</button></td>
+                    <td><button class="btn-request">Request</button></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td class="addr-cell">Dubai Hills Estate</td>
+                    <td>RL22345</td>
+                    <td>235</td>
+                    <td>2024-02-25 13:00</td>
+                    <td><span class="status-pill locked">Locked</span></td>
+                    <td><strong>Primary Team 1</strong></td>
+                    <td class="agent-name">Cameron Williamson</td>
+                    <td><span class="type-pill for-sale">For Sale</span></td>
+                    <td class="price">AED 345,758.00</td>
+                    <td>3</td>
+                    <td><button class="btn-view">View</button></td>
+                    <td><button class="btn-request">Request</button></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td class="addr-cell">The Business Project</td>
+                    <td>RL3456</td>
+                    <td>54</td>
+                    <td>2022-08-24 11:15</td>
+                    <td><span class="status-pill opened">Opened</span></td>
+                    <td><strong>Head Office Dubai</strong></td>
+                    <td class="agent-name">Cameron Williamson</td>
+                    <td><span class="type-pill rent">Rent</span></td>
+                    <td class="price">AED 342,654.00</td>
+                    <td>2</td>
+                    <td><button class="btn-view">View</button></td>
+                    <td><button class="btn-request">Request</button></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td class="addr-cell">402 Dubai Creek Harbour</td>
+                    <td>RL2345</td>
+                    <td>45</td>
+                    <td>2025-08-05 09:30</td>
+                    <td><span class="status-pill invoiced">Invoiced</span></td>
+                    <td><strong>Sales Team 2</strong></td>
+                    <td class="agent-name">Cameron Williamson</td>
+                    <td><span class="type-pill for-sale">For Sale</span></td>
+                    <td class="price">AED 345,678.00</td>
+                    <td>10</td>
+                    <td><button class="btn-view">View</button></td>
+                    <td><button class="btn-request">Request</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.self !== window.top) {
+      const topNav = document.querySelector(".navbar");
+      if (topNav) topNav.style.display = "none";
+      document.body.style.paddingTop = "0";
+    }
+  });
+</script>
+</body>
+</html>

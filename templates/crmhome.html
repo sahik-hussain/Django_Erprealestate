@@ -1,0 +1,1465 @@
+﻿<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Property</title>
+<link rel="stylesheet" href="{% static 'css/crmhome.css' %}?v=4">
+<link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/local-icons.css' %}?v=1">
+<style>
+:root {
+  --dash-ink: #0f213d;
+  --dash-muted: #5f7493;
+  --dash-line: #d7e1ee;
+  --dash-bg: #eef3fb;
+  --dash-panel: #ffffff;
+  --dash-primary: #1e74ff;
+  --dash-primary-soft: #e9f1ff;
+}
+
+.dash-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 95% -10%, #d9e8ff 0%, rgba(217, 232, 255, 0) 38%),
+    radial-gradient(circle at -10% 110%, #dcf8eb 0%, rgba(220, 248, 235, 0) 32%),
+    var(--dash-bg);
+}
+
+.dash-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px;
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid var(--dash-line);
+  backdrop-filter: blur(10px);
+}
+
+.dash-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #334866;
+  font-size: 14px;
+}
+
+.dash-app-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2884ff, #1158d0);
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(30, 116, 255, 0.24);
+}
+
+.dash-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #334866;
+}
+
+.dash-topbar-right select {
+  height: 36px;
+  border: 1px solid #ccdaec;
+  background: #f8fbff;
+  color: #334866;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+.dash-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2c85ff, #165bcf);
+  color: #fff;
+  font-weight: 700;
+}
+
+.dash-layout {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+}
+
+.dash-sidebar {
+  width: 228px;
+  min-height: calc(100vh - 104px);
+  background: var(--dash-panel);
+  border: 1px solid var(--dash-line);
+  border-radius: 16px;
+  padding: 18px 14px;
+  box-shadow: 0 12px 26px rgba(16, 45, 85, 0.08);
+}
+
+.dash-sidebar ul {
+  margin: 0;
+  padding: 0;
+}
+
+.dash-sidebar li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #1f2f49;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.dash-sidebar li i {
+  width: 24px;
+  text-align: center;
+}
+
+.dash-sidebar li.active,
+.dash-sidebar li:hover {
+  background: var(--dash-primary-soft);
+  color: var(--dash-primary);
+  transform: translateX(1px);
+}
+
+.dash-main {
+  flex: 1;
+}
+
+.page-layout {
+  min-height: calc(100vh - 120px);
+}
+
+.content-wrap {
+  margin: 0 12px;
+}
+
+.nav ul a.active {
+  color: #e53935 !important;
+  font-weight: 700;
+}
+
+#dGallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+#dGallery img {
+  width: 100%;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #d9e1ec;
+}
+
+.user-view .dash-topbar,
+.user-view .dash-sidebar,
+.user-view nav.nav {
+  display: none;
+}
+
+.user-view .dash-layout {
+  display: block;
+  padding: 0;
+}
+
+.user-view .dash-main {
+  width: 100%;
+}
+
+.user-view .content-wrap {
+  margin: 0;
+  padding: 14px;
+}
+
+.user-view .page-title-bar,
+.user-view .search-bar.homespace-search {
+  display: none;
+}
+
+.user-hero {
+  position: relative;
+  min-height: 640px;
+  border-radius: 24px;
+  overflow: hidden;
+  color: #fff;
+  background: url("{% static 'images/home1.jpg' %}") center center / cover no-repeat;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  margin-bottom: 24px;
+}
+
+.user-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20, 30, 48, 0.55), rgba(16, 23, 32, 0.38));
+}
+
+.user-hero-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 30px;
+}
+
+.user-hero-logo {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.user-hero-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 40px;
+  padding: 6px;
+}
+
+.user-hero-nav span,
+.user-hero-nav a {
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 999px;
+}
+
+.user-hero-nav span {
+  cursor: pointer;
+}
+
+.user-hero-nav a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.user-hero-nav .active {
+  background: #fff;
+  color: #1f2630;
+  font-weight: 700;
+}
+
+.user-hero-contact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.user-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 920px;
+  margin: 100px auto 0;
+  text-align: center;
+  padding: 0 18px;
+}
+
+.user-hero-content h1 {
+  font-size: clamp(38px, 6vw, 74px);
+  line-height: 1.08;
+  margin: 0 0 18px;
+  font-weight: 800;
+}
+
+.user-hero-content p {
+  margin: 0;
+  font-size: clamp(16px, 2vw, 24px);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.user-hero-search {
+  position: relative;
+  width: min(1080px, calc(100% - 42px));
+  margin: 0 auto 22px;
+  background: #fff;
+  color: #1f2937;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+  padding: 0 0 22px;
+}
+
+.user-tabs {
+  display: inline-flex;
+  margin: 18px 0 16px 18px;
+  background: #f2f5f8;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.user-tabs span {
+  padding: 12px 34px;
+  font-size: 15px;
+  color: #4b5563;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.user-tabs .active {
+  background: #fff;
+  color: #121826;
+}
+
+.user-search-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 12px;
+  padding: 0 18px;
+}
+
+.user-search-field label {
+  display: block;
+  margin: 0 0 8px;
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.user-search-field input,
+.user-search-field select {
+  width: 100%;
+  height: 54px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 0 14px;
+  font-size: 15px;
+  color: #111827;
+  background: #fff;
+}
+
+.user-search-btn {
+  align-self: end;
+  height: 54px;
+  border: none;
+  border-radius: 12px;
+  padding: 0 28px;
+  background: #121417;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.user-search-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 18px 0;
+}
+
+.user-add-btn {
+  border: none;
+  border-radius: 10px;
+  height: 46px;
+  padding: 0 22px;
+  background: var(--dash-primary);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.user-view .container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 10px 8px 28px;
+}
+
+.user-view .user-hero {
+  min-height: 640px;
+  border-radius: 28px;
+  margin-bottom: 0;
+  box-shadow: 0 28px 70px rgba(6, 13, 30, 0.24);
+}
+
+.user-view .user-hero::before {
+  background:
+    linear-gradient(120deg, rgba(12, 21, 38, 0.72), rgba(12, 21, 38, 0.42)),
+    radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0));
+}
+
+.user-view .user-hero-top {
+  align-items: flex-start;
+  padding: 28px 32px 0;
+}
+
+.user-view .user-hero-logo {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+}
+
+.user-view .user-hero-nav {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 24px rgba(10, 14, 22, 0.22);
+}
+
+.user-view .user-hero-nav span,
+.user-view .user-hero-nav a {
+  font-size: 13px;
+  letter-spacing: 0.2px;
+}
+
+.user-view .user-hero-nav .active {
+  box-shadow: 0 8px 20px rgba(20, 28, 42, 0.2);
+}
+
+.user-view .user-hero-contact {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.34);
+  height: 42px;
+  padding: 0 18px;
+}
+
+.user-view .user-hero-content {
+  max-width: 980px;
+  margin-top: 108px;
+}
+
+.user-view .user-hero-content h1 {
+  max-width: 900px;
+  margin: 0 auto 18px;
+  text-shadow: 0 10px 24px rgba(9, 15, 25, 0.35);
+}
+
+.user-view .user-hero-content p {
+  max-width: 720px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.user-view .user-hero-search {
+  width: min(1120px, calc(100% - 44px));
+  margin: -82px auto 28px;
+  border: 1px solid #dde7f5;
+  border-radius: 20px;
+  box-shadow: 0 20px 48px rgba(11, 31, 62, 0.16);
+  padding-bottom: 18px;
+}
+
+.user-view .user-tabs {
+  margin: 16px 0 16px 16px;
+  padding: 3px;
+  background: #eaf1fb;
+  border: 1px solid #d7e4f8;
+  border-radius: 12px;
+}
+
+.user-view .user-tabs span {
+  min-width: 110px;
+  text-align: center;
+  padding: 11px 20px;
+  color: #4f627d;
+}
+
+.user-view .user-tabs .active {
+  border-radius: 9px;
+  background: #ffffff;
+  color: #1a3558;
+  box-shadow: 0 7px 14px rgba(25, 55, 90, 0.13);
+}
+
+.user-view .user-search-grid {
+  gap: 14px;
+  padding: 0 16px;
+}
+
+.user-view .user-search-field label {
+  color: #3d536f;
+  font-size: 13px;
+}
+
+.user-view .user-search-field input,
+.user-view .user-search-field select {
+  height: 52px;
+  border: 1px solid #d5e1f2;
+  border-radius: 12px;
+  background: #fbfdff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-view .user-search-field input:focus,
+.user-view .user-search-field select:focus {
+  outline: none;
+  border-color: #7fa8f8;
+  box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.12);
+}
+
+.user-view .user-search-btn {
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1f6feb, #1555cb);
+  box-shadow: 0 12px 22px rgba(24, 92, 213, 0.28);
+  cursor: pointer;
+}
+
+.user-view .user-search-actions {
+  padding-top: 12px;
+}
+
+.user-view .user-add-btn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.28);
+}
+
+.user-view .results-header {
+  margin: 0 0 14px;
+  border: 1px solid #dce7f6;
+  border-radius: 14px;
+  background: #f9fbff;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-view .results-header h5 {
+  margin: 0;
+  color: #12325a;
+  font-size: 18px;
+}
+
+.user-view .results-header p {
+  margin: 4px 0 0;
+  color: #5f7494;
+  font-size: 13px;
+}
+
+.user-view .view-chip {
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid #cfdbef;
+  background: #fff;
+  color: #2e4668;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.user-view .grid {
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 16px;
+}
+
+.user-view .card {
+  border: 1px solid #d9e4f3;
+  border-radius: 16px;
+  background: #fff;
+  padding: 12px;
+  box-shadow: 0 12px 24px rgba(12, 36, 70, 0.09);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-view .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 30px rgba(12, 36, 70, 0.16);
+}
+
+.user-view .card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.user-view .card h3 {
+  margin: 12px 0 4px;
+  color: #14345d;
+  font-size: 21px;
+}
+
+.user-view .card p {
+  margin: 0;
+  color: #5f7494;
+  font-size: 13px;
+}
+
+.user-view .tags {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.user-view .tags span {
+  border: 1px solid #d4e0f2;
+  background: #f7fbff;
+  color: #334e72;
+  font-size: 12px;
+  border-radius: 999px;
+  padding: 5px 10px;
+}
+
+.user-view .bottom {
+  margin-top: 12px;
+  gap: 8px;
+}
+
+.user-view .price {
+  color: #0f3f7f;
+  font-size: 20px;
+}
+
+.user-view .green {
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #1f6feb, #1555cb);
+  color: #fff;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.user-view .req {
+  border: none;
+  border-radius: 9px;
+  background: #10233d;
+  color: #fff;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.user-view .req.requested {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.user-view .crimson-footer {
+  margin-top: 30px;
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .dash-layout {
+    flex-direction: column;
+  }
+
+  .dash-sidebar {
+    width: 100%;
+    min-height: auto;
+  }
+
+  .user-hero-top {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .user-hero {
+    min-height: 620px;
+    margin-bottom: 24px;
+  }
+
+  .user-view .user-hero-search {
+    margin-top: -50px;
+  }
+
+  .user-search-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .user-search-btn {
+    width: 100%;
+  }
+
+  .user-tabs {
+    width: calc(100% - 36px);
+    justify-content: center;
+  }
+
+  .user-tabs span {
+    flex: 1;
+    text-align: center;
+    padding: 12px 8px;
+  }
+
+  .user-view .grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+
+</head>
+<body class="{% if request.user.is_staff %}staff-view{% else %}user-view{% endif %}">
+<div class="dash-shell">
+  <header class="dash-topbar">
+    <div class="dash-topbar-left">
+      <div class="dash-app-icon"><i class="fa-solid fa-people-group"></i></div>
+      {% if request.user.is_staff %}
+      <span>Home / Dashboard / <b>Overview</b></span>
+      {% else %}
+      <span>Home / <b>Properties</b></span>
+      {% endif %}
+    </div>
+    <div class="dash-topbar-right">
+      {% if request.user.is_staff %}
+      <select>
+        <option>All sales Agents</option>
+      </select>
+      <i class="fa-regular fa-bell"></i>
+      <div class="dash-avatar">CR</div>
+      {% endif %}
+      <div><b>CRIMSON</b> Estate Management</div>
+    </div>
+  </header>
+
+  <div class="dash-layout">
+    <aside class="dash-sidebar">
+      <ul>
+        {% if request.user.is_staff %}
+        <li onclick="window.location.href='{% url 'index-html' %}'"><i class="fa-solid fa-table-columns"></i> Dashboard</li>
+        <li class="active" onclick="window.location.href='{% url 'crmhome' %}'"><i class="fa-solid fa-users"></i> CRM</li>
+        <li onclick="window.location.href='{% url 'task-list' %}'"><i class="fa-solid fa-list-check"></i> Task List</li>
+        <li onclick="window.location.href='{% url 'project' %}'"><i class="fa-solid fa-diagram-project"></i> Project</li>
+        <li onclick="window.location.href='{% url 'estate' %}'"><i class="fa-solid fa-building"></i> EstateManagement</li>
+        <li onclick="window.location.href='{% url 'report' %}'"><i class="fa-solid fa-chart-column"></i> Report</li>
+        <li onclick="window.location.href='{% url 'agent' %}'"><i class="fa-solid fa-user"></i> Agent</li>
+        {% else %}
+        <li class="active"><i class="fa-solid fa-house"></i> Properties</li>
+        {% endif %}
+      </ul>
+    </aside>
+    <main class="dash-main">
+
+<!-- NAVBAR -->
+<nav class="nav">
+  <ul>
+    <li><a href="{% url 'crmhome-html' %}" id="crmNavHome">Property</a></li>
+    {% if request.user.is_staff %}
+    <li><a href="{% url 'lead-html' %}" id="crmNavLead">Leads</a></li>
+    <li><a href="{% url 'listings-html' %}" id="crmNavListing">Listing</a></li>
+    <li><a href="{% url 'library-html' %}" id="crmNavLibrary">Library</a></li>
+    <li><a href="{% url 'contact-html' %}" id="crmNavContact">Contacts</a></li>
+    <li><a href="{% url 'deals-html' %}" id="crmNavDeals">Deals</a></li>
+    <li><a href="{% url 'marketing-html' %}" id="crmNavMarketing">Marketing</a></li>
+    {% endif %}
+  </ul>
+</nav>
+{% if request.user.is_staff %}
+<div id="crmInlineFrameWrap" style="display:none; margin:16px;">
+  <iframe id="crmInlineFrame" title="CRM Inline View" style="width:100%; height:78vh; border:0; border-radius:12px; background:#fff;"></iframe>
+</div>
+{% endif %}
+<div class="page-layout">
+  <div class="content-wrap">
+<div class="container">
+  {% if not request.user.is_staff %}
+  <section class="user-hero">
+      <div class="user-hero-top">
+        <div class="user-hero-logo">Property</div>
+        <div class="user-hero-nav">
+          <span>Property</span>
+          <span class="active" data-mode="buy">Buy</span>
+          <span data-mode="rent">Rent</span>
+          <span data-mode="sell">Sell</span>
+          <a href="{% url 'services-page' %}">Services</a>
+          <a href="{% url 'user-contact' %}">Contact</a>
+        </div>
+        <a href="{% url 'login-page' %}" class="user-hero-contact">Login</a>
+      </div>
+
+    <div class="user-hero-content">
+      <h1>Seamless Property Deals - Buy, Rent, or Sell Hassle-Free</h1>
+      <p>Search for homes to buy or rent and compare house prices.</p>
+    </div>
+  </section>
+  <div class="user-hero-search">
+    <div class="user-tabs">
+      <span class="active" data-mode="buy">Buy</span>
+      <span data-mode="sell">Sell</span>
+      <span data-mode="rent">Rent</span>
+    </div>
+      <div class="user-search-grid">
+        <div class="user-search-field">
+          <label>Location</label>
+          <input type="text" id="searchInput" placeholder="Search location">
+        </div>
+      <div class="user-search-field">
+        <label>Type</label>
+        <select id="typeFilter">
+          <option>Any Type</option>
+          <option>House</option>
+          <option>Apartment</option>
+          <option>Villa</option>
+        </select>
+      </div>
+      <div class="user-search-field">
+        <label>Price</label>
+        <select id="priceFilter">
+          <option>Any Price</option>
+          <option>AED 0 - 500k</option>
+          <option>AED 500k - 1M</option>
+          <option>AED 1M+</option>
+        </select>
+      </div>
+      <button type="button" class="user-search-btn" id="locationSearchBtn">Search Properties</button>
+    </div>
+    {% if can_add_property %}
+    <div class="user-search-actions">
+      <button type="button" class="user-add-btn" id="openAddPropertyBtn">Add Property</button>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <div class="page-title-bar">
+    <div>
+      <h1>Properties</h1>
+      <p>Showcase and manage your latest listings</p>
+    </div>
+    <div class="breadcrumbs-mini">
+      {% if request.user.is_staff %}
+      <a href="{% url 'index-html' %}">Home</a>
+      {% else %}
+      <a href="{% url 'crmhome' %}">Home</a>
+      {% endif %}
+      <span>/</span>
+      <span>Properties</span>
+    </div>
+  </div>
+
+  {% if request.user.is_staff %}
+  <div class="search-bar homespace-search">
+    <div class="search-field">
+      <label>Location</label>
+      <input type="text" id="searchInput" placeholder="Enter city or zip" onkeyup="searchCard()">
+    </div>
+    <div class="search-field">
+      <label>Type</label>
+      <select id="typeFilter">
+        <option>Any Type</option>
+        <option>House</option>
+        <option>Apartment</option>
+        <option>Villa</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label>Price</label>
+      <select id="priceFilter">
+        <option>Any Price</option>
+        <option>AED 0 - 500k</option>
+        <option>AED 500k - 1M</option>
+        <option>AED 1M+</option>
+      </select>
+    </div>
+    <div class="search-actions">
+      <button class="filter" type="button" id="locationSearchBtn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+      <button type="button" class="green" id="openAddPropertyBtn" onclick="openAddPropertyModal()">Add Property</button>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="results-header">
+    <div>
+      <h5>Featured Properties</h5>
+      <p>Curated property list for your CRM team</p>
+    </div>
+    <div class="view-chip">Grid View</div>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid" id="grid">
+    <!-- CARD -->
+    <div class="card" data-purpose="buy">
+      <img src="{% static 'images/home10.jpg.jpg' %}">
+      <h3>Seaside Serenity Villa</h3>
+      <p>Wake Up To The Soothing Melody Of Waves</p>
+     <div class="tags">
+        <span><i class="fa-solid fa-bed"></i> 4 Bedroom</span>
+        <span><i class="fa-solid fa-bath"></i> 3 Bathroom</span>
+        <span><i class="fa-solid fa-house"></i> Villa</span>
+    </div>
+      <div class="bottom">
+        <span class="price">AED 1,25,000</span>
+       
+        <button class="green" onclick="openDetail(this)"
+                data-img="{% static 'images/home11.jpg.jpg' %}"
+                data-title="Villa"
+                data-address="832 Brentwood Drive"
+                data-type="Villa"
+                data-condition="New Property"
+                data-date="12-Jan-2026"
+                data-city="Detroit"
+                data-area="500">
+        View
+        </button>
+        <button class="req">Request</button>
+      </div>
+    </div>
+
+
+   <div class="card" data-purpose="sell">
+      <img src="{% static 'images/home11.jpg.jpg' %}">
+      <h3>Seaside Serenity Villa</h3>
+      <p>Wake Up To The Soothing Melody Of Waves</p>
+     <div class="tags">
+        <span><i class="fa-solid fa-bed"></i> 4 Bedroom</span>
+        <span><i class="fa-solid fa-bath"></i> 3 Bathroom</span>
+        <span><i class="fa-solid fa-house"></i> Villa</span>
+    </div>
+      <div class="bottom">
+        <span class="price">AED 1,25,000</span>
+       
+        <button class="green" onclick="openDetail(this)"
+                data-img="{% static 'images/home10.jpg.jpg' %}"
+                data-title="Villa"
+                data-address="832 Brentwood Drive"
+                data-type="Villa"
+                data-condition="New Property"
+                data-date="28-Jan-2026"
+                data-city="Detroit"
+                data-area="800">
+        View
+        </button>
+        <button class="req">Request</button>
+      </div>
+    </div>
+
+   <div class="card" data-purpose="rent">
+      <img src="{% static 'images/home13.jpg.jpg' %}">
+      <h3>Seaside Serenity Villa</h3>
+      <p>Wake Up To The Soothing Melody Of Waves</p>
+     <div class="tags">
+        <span><i class="fa-solid fa-bed"></i> 4 Bedroom</span>
+        <span><i class="fa-solid fa-bath"></i> 3 Bathroom</span>
+        <span><i class="fa-solid fa-house"></i> Villa</span>
+    </div>
+      <div class="bottom">
+        <span class="price">AED 1,25,000</span>
+       
+        <button class="green" onclick="openDetail(this)"
+                data-img="{% static 'images/home10.jpg.jpg' %}"
+                data-title="Villa"
+                data-address="832 Brentwood Drive"
+                data-type="Villa"
+                data-condition="New Property"
+                data-date="8-fed-2026"
+                data-city="Detroit"
+                data-area="700">
+        View
+        </button>
+        <button class="req">Request</button>
+      </div>
+    </div>
+
+   <div class="card" data-purpose="buy">
+      <img src="{% static 'images/home11.jpg.jpg' %}">
+      <h3>Seaside Serenity Villa</h3>
+      <p>Wake Up To The Soothing Melody Of Waves</p>
+     <div class="tags">
+        <span><i class="fa-solid fa-bed"></i> 4 Bedroom</span>
+        <span><i class="fa-solid fa-bath"></i> 3 Bathroom</span>
+        <span><i class="fa-solid fa-house"></i> Villa</span>
+    </div>
+      <div class="bottom">
+        <span class="price">AED 1,25,000</span>
+       
+        <button class="green" onclick="openDetail(this)"
+                data-img="{% static 'images/home8.jpg.jpg' %}"
+                data-title="Villa"
+                data-address="832 Brentwood Drive"
+                data-type="Villa"
+                data-condition="New Property"
+                data-date="23-Jan-2026"
+                data-city="Detroit"
+                data-area="650">
+        View
+        </button>
+        <button class="req">Request</button>
+      </div>
+    </div>
+
+     <div class="card" data-purpose="sell">
+      <img src="{% static 'images/home5.jpg' %}">
+      <h3>Seaside Serenity Villa</h3>
+      <p>Luxury Beachfront Living</p>
+
+     <div class="tags">
+        <span><i class="fa-solid fa-bed"></i> 4 Bedroom</span>
+        <span><i class="fa-solid fa-bath"></i> 3 Bathroom</span>
+        <span><i class="fa-solid fa-house"></i> Villa</span>
+    </div>
+
+     <div class="bottom">
+        <span class="price">AED 1,25,000</span>
+       
+        <button class="green" onclick="openDetail(this)"
+                data-img="{% static 'images/home5.jpg' %}"
+                data-title="Villa"
+                data-address="832 Brentwood Drive"
+                data-type="Villa"
+                data-condition="New Property"
+                data-date="15-Jan-2026"
+                data-city="Detroit"
+                data-area="750">
+        View
+        </button>
+        <button class="req">Request</button>
+      </div>
+    </div>
+
+     <div class="card" data-purpose="rent">
+      <img src="{% static 'images/home6.jpg' %}">
+      <h3>Seaside Serenity Villa</h3>
+      <p>Luxury Beachfront Living</p>
+
+    <div class="tags">
+        <span><i class="fa-solid fa-bed"></i> 4 Bedroom</span>
+        <span><i class="fa-solid fa-bath"></i> 3 Bathroom</span>
+        <span><i class="fa-solid fa-house"></i> Villa</span>
+    </div>
+
+     <div class="bottom">
+        <span class="price">AED 1,25,000</span>
+       
+        <button class="green" onclick="openDetail(this)"
+                data-img="{% static 'images/home6.jpg' %}"
+                data-title="Villa"
+                data-address="832 Brentwood Drive"
+                data-type="Villa"
+                data-condition="New Property"
+                data-date="12-may-2026"
+                data-city="Detroit"
+                data-area="500">
+        View
+        </button>
+        <button class="req">Request</button>
+      </div>
+    </div>
+
+    <div class="card" data-purpose="buy">
+      <img src="{% static 'images/home2.jpg' %}">
+      <h3>Skyline View Apartment</h3>
+      <p>Modern city apartment with premium amenities</p>
+
+      <div class="tags">
+        <span><i class="fa-solid fa-bed"></i> 3 Bedroom</span>
+        <span><i class="fa-solid fa-bath"></i> 2 Bathroom</span>
+        <span><i class="fa-solid fa-house"></i> Apartment</span>
+      </div>
+
+      <div class="bottom">
+        <span class="price">AED 8,90,000</span>
+
+        <button class="green" onclick="openDetail(this)"
+                data-img="{% static 'images/home2.jpg' %}"
+                data-title="Skyline View Apartment"
+                data-address="147 Marina Heights, Dubai"
+                data-type="Apartment"
+                data-condition="Ready To Move"
+                data-date="18-Feb-2026"
+                data-city="Dubai"
+                data-area="420"
+                data-price="AED 8,90,000"
+                data-beds="3"
+                data-baths="2"
+                data-desc="Modern city apartment with premium amenities"
+                data-images="{% static 'images/home2.jpg' %}|{% static 'images/home3.jpg' %}">
+        View
+        </button>
+        <button class="req">Request</button>
+      </div>
+    </div>
+
+    <div class="card" data-purpose="sell">
+      <img src="{% static 'images/home4.jpg' %}">
+      <h3>Palm Garden Townhouse</h3>
+      <p>Spacious family townhouse in a gated community</p>
+
+      <div class="tags">
+        <span><i class="fa-solid fa-bed"></i> 4 Bedroom</span>
+        <span><i class="fa-solid fa-bath"></i> 3 Bathroom</span>
+        <span><i class="fa-solid fa-house"></i> House</span>
+      </div>
+
+      <div class="bottom">
+        <span class="price">AED 12,40,000</span>
+
+        <button class="green" onclick="openDetail(this)"
+                data-img="{% static 'images/home4.jpg' %}"
+                data-title="Palm Garden Townhouse"
+                data-address="22 Palm Residency, Sharjah"
+                data-type="House"
+                data-condition="New Property"
+                data-date="25-Feb-2026"
+                data-city="Sharjah"
+                data-area="780"
+                data-price="AED 12,40,000"
+                data-beds="4"
+                data-baths="3"
+                data-desc="Spacious family townhouse in a gated community"
+                data-images="{% static 'images/home4.jpg' %}|{% static 'images/home5.jpg' %}|{% static 'images/home6.jpg' %}">
+        View
+        </button>
+        <button class="req">Request</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<footer class="crimson-footer">
+  <div class="crimson-footer-top">
+    <div class="crimson-footer-col brand">
+      <h3>CRIMSON</h3>
+      <p>Estate Management CRM for property teams, sales tracking, and client engagement.</p>
+      <div class="social-links">
+        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+
+    <div class="crimson-footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        {% if request.user.is_staff %}
+        <li><a href="{% url 'index-html' %}">Dashboard</a></li>
+        {% endif %}
+        <li><a href="{% url 'crmhome' %}">Properties</a></li>
+        {% if request.user.is_staff %}
+        <li><a href="{% url 'lead-html' %}">Leads</a></li>
+        <li><a href="{% url 'contact-html' %}">Contacts</a></li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="crimson-footer-col">
+      {% if request.user.is_staff %}
+      <h4>CRM Modules</h4>
+      {% else %}
+      <h4>User Pages</h4>
+      {% endif %}
+      <ul>
+        {% if request.user.is_staff %}
+        <li><a href="{% url 'listings-html' %}">Listings</a></li>
+        <li><a href="{% url 'deals-html' %}">Deals</a></li>
+        <li><a href="{% url 'marketing-html' %}">Marketing</a></li>
+        <li><a href="{% url 'library-html' %}">Library</a></li>
+        {% else %}
+        <li><a href="{% url 'crmhome' %}">Property</a></li>
+        <li><a href="{% url 'services-page' %}">Services</a></li>
+        <li><a href="{% url 'user-contact' %}">Contact</a></li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="crimson-footer-col">
+      <h4>Contact</h4>
+      <p>Detroit, Michigan</p>
+      <p>United States</p>
+      <p><strong>Phone:</strong> +1 555 0100</p>
+      <p><strong>Email:</strong> crm@crimson.com</p>
+    </div>
+  </div>
+
+  <div class="crimson-footer-bottom">
+    <p>Copyright 2026 CRIMSON. All rights reserved.</p>
+  </div>
+</footer>
+    </main>
+  </div>
+</div>
+
+<!-- PROPERTY DETAIL MODAL -->
+<div id="detailModal" class="modal" style="display:none;">
+  <div class="modal-box">
+
+    <span class="close" onclick="closeDetail()">&times;</span>
+
+    <div class="overview-box">
+      <img id="dImg" src="">
+      <div>
+        <h3 id="dTitle"></h3>
+        <p id="dAddress"></p>
+      </div>
+    </div>
+
+    <h3 id="propertyDetailsHeading">Property Details</h3>
+
+    <table id="detailTable">
+      <tr><th>Address</th><td id="dAddressTable"></td></tr>
+      <tr><th>Type</th><td id="dType"></td></tr>
+      <tr><th>Condition</th><td id="dCondition"></td></tr>
+      <tr><th>Date</th><td id="dDate"></td></tr>
+      <tr><th>City</th><td id="dCity"></td></tr>
+      <tr><th>Area</th><td id="dArea"></td></tr>
+      <tr><th>Assigned Agent</th><td id="dAssignedAgent"></td></tr>
+      <tr><th>Price</th><td id="dPrice"></td></tr>
+      <tr><th>Bedrooms</th><td id="dBeds"></td></tr>
+      <tr><th>Bathrooms</th><td id="dBaths"></td></tr>
+      <tr><th>Description</th><td id="dDesc"></td></tr>
+    </table>
+    <div id="dGallery"></div>
+
+    <div class="detail-actions">
+      {% if request.user.is_staff %}
+      <button type="button" class="green" id="editDetailBtn" onclick="enableEditDetail()">Edit</button>
+      <button type="button" class="req" id="addMoreImagesBtn">Add Images</button>
+      <button type="button" class="req hidden" id="saveDetailBtn" onclick="saveDetailChanges()">Save</button>
+      {% endif %}
+      <button type="button" class="req" id="cancelEditBtn" onclick="closeDetail()">Close</button>
+    </div>
+    <input type="file" id="dAddImagesInput" accept="image/*" multiple style="display:none;">
+
+    <div id="detailEditForm" class="detail-edit-form hidden">
+      <div class="detail-edit-grid">
+        <label>Title</label><input type="text" id="eTitle">
+        <label>Address</label><input type="text" id="eAddress">
+        <label>Type</label><input type="text" id="eType">
+        <label>Condition</label><input type="text" id="eCondition">
+        <label>Date</label><input type="text" id="eDate">
+        <label>City</label><input type="text" id="eCity">
+        <label>Area</label><input type="text" id="eArea">
+        <label>Image</label><input type="file" id="eImage" accept="image/*" multiple>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ADD PROPERTY MODAL -->
+<div id="addPropertyModal" class="modal" style="display:none;">
+  <div class="modal-box add-property-modal-box">
+    <span class="close" onclick="closeAddPropertyModal()">&times;</span>
+    <div class="add-property-modal-head">
+      <h3 id="addPropertyModalTitle">Add Property</h3>
+      <p id="addPropertyModalSubtitle">Fill details below to create a new property and assign it to an agent.</p>
+    </div>
+
+    <form id="addPropertyForm" class="add-property-form" onsubmit="submitAddProperty(event)">
+      <section class="ap-section">
+        <h4 class="ap-section-title">Basic Information</h4>
+        <div class="ap-grid">
+          <div class="ap-field ap-field-full">
+            <label for="apTitle">Title</label>
+            <input type="text" id="apTitle" required>
+          </div>
+
+          <div class="ap-field ap-field-full">
+            <label for="apAddress">Address</label>
+            <input type="text" id="apAddress" required>
+          </div>
+
+          <div class="ap-field">
+            <label for="apType">Type</label>
+            <input type="text" id="apType" value="Villa" required>
+          </div>
+
+          <div class="ap-field">
+            <label for="apCondition">Condition</label>
+            <input type="text" id="apCondition" value="New Property" required>
+          </div>
+
+          <div class="ap-field">
+            <label for="apDate">Date</label>
+            <input type="date" id="apDate" required>
+          </div>
+
+          <div class="ap-field">
+            <label for="apCity">City</label>
+            <input type="text" id="apCity" required>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <h4 class="ap-section-title">Property Specifications</h4>
+        <div class="ap-grid">
+          <div class="ap-field">
+            <label for="apArea">Area (sq ft)</label>
+            <input type="number" id="apArea" min="1" required>
+          </div>
+
+          <div class="ap-field">
+            <label for="apPrice">Price</label>
+            <input type="text" id="apPrice" placeholder="AED 1,25,000" required>
+          </div>
+
+          <div class="ap-field">
+            <label for="apBeds">Bedrooms</label>
+            <input type="number" id="apBeds" min="0" value="4" required>
+          </div>
+
+          <div class="ap-field">
+            <label for="apBaths">Bathrooms</label>
+            <input type="number" id="apBaths" min="0" value="3" required>
+          </div>
+
+          <div class="ap-field ap-field-full">
+            <label for="apDesc">Description</label>
+            <input type="text" id="apDesc" placeholder="Short property description" required>
+          </div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <h4 class="ap-section-title">Assignment & Media</h4>
+        <div class="ap-grid">
+          {% if request.user.is_staff %}
+          <div class="ap-field ap-field-full">
+            <label for="apAssignedAgent">Assigned Agent</label>
+            <select id="apAssignedAgent" required>
+              <option value="">Select Agent</option>
+              {% for agent in assignable_agents %}
+              <option value="{{ agent.id }}" {% if agent.id == request.user.id %}selected{% endif %}>
+                {{ agent.name }}{% if agent.email %} ({{ agent.email }}){% endif %}
+              </option>
+              {% endfor %}
+            </select>
+            <div class="ap-agent-tools">
+              <button type="button" class="req ap-agent-btn" onclick="openAgentRegisterForProperty()">Add Agent</button>
+              <button type="button" class="req ap-agent-btn" onclick="reloadAssignableAgents()">Refresh Agents</button>
+            </div>
+          </div>
+          {% endif %}
+
+          <div class="ap-field ap-field-full">
+            <label for="apImage">Image(s)</label>
+            <input type="file" id="apImage" accept="image/*" multiple>
+          </div>
+        </div>
+      </section>
+
+      <div class="add-property-actions">
+        <button type="button" class="req" onclick="closeAddPropertyModal()">Cancel</button>
+        <button type="submit" class="green" id="addPropertySubmitBtn">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="imagePreviewModal" class="image-preview-modal" style="display:none;">
+  <button type="button" class="image-preview-close" id="imagePreviewClose">&times;</button>
+  <img id="imagePreviewLarge" src="" alt="Property Preview">
+</div>
+
+<script src="{% static 'crmhome.js' %}?v=26"></script>
+<script>
+  (function () {
+    {% if request.user.is_staff %}
+    const leadLink = document.getElementById("crmNavLead");
+    const homeLink = document.getElementById("crmNavHome");
+    const listingLink = document.getElementById("crmNavListing");
+    const libraryLink = document.getElementById("crmNavLibrary");
+    const contactLink = document.getElementById("crmNavContact");
+    const dealsLink = document.getElementById("crmNavDeals");
+    const marketingLink = document.getElementById("crmNavMarketing");
+    const navLinks = document.querySelectorAll("nav.nav a");
+    const frameWrap = document.getElementById("crmInlineFrameWrap");
+    const frame = document.getElementById("crmInlineFrame");
+    const pageLayout = document.querySelector(".page-layout");
+    const crimsonFooter = document.querySelector(".crimson-footer");
+
+    function setActiveLink(activeEl) {
+      navLinks.forEach(function (el) { el.classList.remove("active"); });
+      if (activeEl) activeEl.classList.add("active");
+    }
+
+    function openEmbedded(url, activeEl) {
+      if (!frameWrap || !frame || !pageLayout) return;
+      frame.src = url;
+      frameWrap.style.display = "block";
+      pageLayout.style.display = "none";
+      setActiveLink(activeEl);
+      if (crimsonFooter) {
+        crimsonFooter.style.display = "none";
+      }
+    }
+
+    if (leadLink && frameWrap && frame && pageLayout) {
+      leadLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        openEmbedded("{% url 'lead-html' %}", leadLink);
+      });
+    }
+
+    if (listingLink && frameWrap && frame && pageLayout) {
+      listingLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        openEmbedded("{% url 'listings-html' %}", listingLink);
+      });
+    }
+
+    if (libraryLink) {
+      libraryLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        openEmbedded("{% url 'library-html' %}", libraryLink);
+      });
+    }
+
+    if (contactLink) {
+      contactLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        openEmbedded("{% url 'contact-html' %}", contactLink);
+      });
+    }
+
+    if (dealsLink) {
+      dealsLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        openEmbedded("{% url 'deals-html' %}", dealsLink);
+      });
+    }
+
+    if (marketingLink) {
+      marketingLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        openEmbedded("{% url 'marketing-html' %}", marketingLink);
+      });
+    }
+
+    if (homeLink && frameWrap && pageLayout) {
+      homeLink.addEventListener("click", function () {
+        frameWrap.style.display = "none";
+        pageLayout.style.display = "block";
+        setActiveLink(homeLink);
+        if (crimsonFooter) {
+          crimsonFooter.style.display = "";
+        }
+      });
+    }
+
+    if (homeLink) {
+      setActiveLink(homeLink);
+    }
+    {% else %}
+    const homeLink = document.getElementById("crmNavHome");
+    if (homeLink) {
+      homeLink.classList.add("active");
+    }
+    {% endif %}
+  })();
+</script>
+</body>
+</html>

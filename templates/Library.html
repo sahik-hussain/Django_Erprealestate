@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Library</title>
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Library.css' %}?v=2">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="{% url 'crmhome' %}" class="nav-link">Home</a>
+    <a href="{% url 'lead' %}" class="nav-link">Leads</a>
+    <a href="{% url 'listings' %}" class="nav-link">Listings</a>
+    <a href="{% url 'library' %}" class="nav-link active">Library</a>
+    <a href="{% url 'contact' %}" class="nav-link">Contacts</a>
+    <a href="{% url 'deals' %}" class="nav-link">Deals</a>
+    <a href="{% url 'marketing' %}" class="nav-link">Marketing</a>
+</div>
+
+<div class="page-wrap">
+    <div class="search-container">
+        <div class="search-input-wrapper">
+            <input type="text" class="search-input" placeholder="Search a property">
+            <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+        </div>
+        <button class="view-btn gray">Listings</button>
+        <button class="view-btn black">Kanban</button>
+    </div>
+
+    <div class="filter-bar">
+        <div class="filter-item"><i class="fa-solid fa-location-dot"></i> Community <i class="fa-solid fa-chevron-down"></i></div>
+        <div class="filter-item"><i class="fa-solid fa-map-pin"></i> Sub Community <i class="fa-solid fa-chevron-down"></i></div>
+        <div class="filter-item"><i class="fa-solid fa-house"></i> Property type <i class="fa-solid fa-chevron-down"></i></div>
+        <div class="filter-item"><i class="fa-solid fa-money-bill"></i> Price Range <i class="fa-solid fa-chevron-down"></i></div>
+        <div class="filter-item"><i class="fa-solid fa-bed"></i> Bedrooms <i class="fa-solid fa-chevron-down"></i></div>
+        <div class="filter-item"><i class="fa-solid fa-tag"></i> Sale type <i class="fa-solid fa-chevron-down"></i></div>
+        <div class="filter-item"><i class="fa-solid fa-ruler-combined"></i> Size</div>
+        <div class="filter-item"><i class="fa-solid fa-user"></i> Agents <i class="fa-solid fa-chevron-down"></i></div>
+        <div class="filter-item bg-gray"><i class="fa-solid fa-sliders"></i> Filters</div>
+    </div>
+
+    <div class="property-grid">
+        <div class="card">
+            <div class="selection-check"><i class="fa fa-check"></i></div>
+            <img src="{% static 'images/home13.jpg.jpg' %}" class="card-image">
+            <div class="card-content">
+                <h4 class="property-title">Seaside Serenity Villa</h4>
+                <p class="property-desc">Wake up to the soothing melody of waves. This beachfront villa offers premium modern living with open sea views.</p>
+                <div class="badge-outline">Coastal Escapes - Where Waves Beckon</div>
+                <div class="icon-row">
+                    <span class="icon-tag"><i class="fa fa-bed"></i> 4-Bedroom</span>
+                    <span class="icon-tag"><i class="fa fa-bath"></i> 3-Bathroom</span>
+                    <span class="icon-tag"><i class="fa fa-house"></i> Villa</span>
+                </div>
+                <div class="price-row">
+                    <div class="price-box">
+                        <small>Price</small>
+                        <div class="price-val">AED 1,250,000</div>
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn-view">View</button>
+                        <button class="btn-request">Request</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="selection-empty"></div>
+            <img src="{% static 'images/home12.jpg.jpg' %}" class="card-image">
+            <div class="card-content">
+                <h4 class="property-title">Palm Horizon Residence</h4>
+                <p class="property-desc">A clean contemporary layout with bright interiors, private deck, and direct access to lifestyle amenities.</p>
+                <div class="badge-outline">Waterfront Collection</div>
+                <div class="icon-row">
+                    <span class="icon-tag"><i class="fa fa-bed"></i> 3-Bedroom</span>
+                    <span class="icon-tag"><i class="fa fa-bath"></i> 2-Bathroom</span>
+                    <span class="icon-tag"><i class="fa fa-house"></i> Apartment</span>
+                </div>
+                <div class="price-row">
+                    <div class="price-box">
+                        <small>Price</small>
+                        <div class="price-val">AED 1,080,000</div>
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn-view">View</button>
+                        <button class="btn-request">Request</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="selection-empty"></div>
+            <img src="{% static 'images/home11.jpg.jpg' %}" class="card-image">
+            <div class="card-content">
+                <h4 class="property-title">Harbor Skyline Loft</h4>
+                <p class="property-desc">Modern loft with panoramic skyline views, smart controls, and premium finishes curated for city professionals.</p>
+                <div class="badge-outline">Urban Signature Homes</div>
+                <div class="icon-row">
+                    <span class="icon-tag"><i class="fa fa-bed"></i> 2-Bedroom</span>
+                    <span class="icon-tag"><i class="fa fa-bath"></i> 2-Bathroom</span>
+                    <span class="icon-tag"><i class="fa fa-house"></i> Loft</span>
+                </div>
+                <div class="price-row">
+                    <div class="price-box">
+                        <small>Price</small>
+                        <div class="price-val">AED 980,000</div>
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn-view">View</button>
+                        <button class="btn-request">Request</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="selection-check"><i class="fa fa-check"></i></div>
+            <img src="{% static 'images/home10.jpg.jpg' %}" class="card-image">
+            <div class="card-content">
+                <h4 class="property-title">Sunset Garden Villa</h4>
+                <p class="property-desc">Spacious villa with landscaped garden, private pool, and a warm family-friendly neighborhood environment.</p>
+                <div class="badge-outline">Family Premium Series</div>
+                <div class="icon-row">
+                    <span class="icon-tag"><i class="fa fa-bed"></i> 5-Bedroom</span>
+                    <span class="icon-tag"><i class="fa fa-bath"></i> 4-Bathroom</span>
+                    <span class="icon-tag"><i class="fa fa-house"></i> Villa</span>
+                </div>
+                <div class="price-row">
+                    <div class="price-box">
+                        <small>Price</small>
+                        <div class="price-val">AED 1,640,000</div>
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn-view">View</button>
+                        <button class="btn-request">Request</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="selection-empty"></div>
+            <img src="{% static 'images/home9.jpg.jpg' %}" class="card-image">
+            <div class="card-content">
+                <h4 class="property-title">Crescent Bay Apartment</h4>
+                <p class="property-desc">Open-plan apartment with high natural light, upgraded kitchen, and convenient proximity to business districts.</p>
+                <div class="badge-outline">Cityline Smart Living</div>
+                <div class="icon-row">
+                    <span class="icon-tag"><i class="fa fa-bed"></i> 3-Bedroom</span>
+                    <span class="icon-tag"><i class="fa fa-bath"></i> 2-Bathroom</span>
+                    <span class="icon-tag"><i class="fa fa-house"></i> Apartment</span>
+                </div>
+                <div class="price-row">
+                    <div class="price-box">
+                        <small>Price</small>
+                        <div class="price-val">AED 860,000</div>
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn-view">View</button>
+                        <button class="btn-request">Request</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="selection-check"><i class="fa fa-check"></i></div>
+            <img src="{% static 'images/home8.jpg.jpg' %}" class="card-image">
+            <div class="card-content">
+                <h4 class="property-title">Azure Palm Residence</h4>
+                <p class="property-desc">Elegant residence with premium amenities, secure access, and exceptional rental yield in a prime district.</p>
+                <div class="badge-outline">Investor Choice</div>
+                <div class="icon-row">
+                    <span class="icon-tag"><i class="fa fa-bed"></i> 2-Bedroom</span>
+                    <span class="icon-tag"><i class="fa fa-bath"></i> 2-Bathroom</span>
+                    <span class="icon-tag"><i class="fa fa-house"></i> Apartment</span>
+                </div>
+                <div class="price-row">
+                    <div class="price-box">
+                        <small>Price</small>
+                        <div class="price-val">AED 920,000</div>
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn-view">View</button>
+                        <button class="btn-request">Request</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.self !== window.top) {
+      const topNav = document.querySelector(".navbar");
+      if (topNav) topNav.style.display = "none";
+    }
+  });
+</script>
+</body>
+</html>

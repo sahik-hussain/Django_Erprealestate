@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}?v=2">
+</head>
+<body>
+
+<header class="main-header">
+    <nav>
+        <a href="{% url 'crmhome' %}">Home</a>
+        <a href="{% url 'lead' %}">Leads</a>
+        <a href="{% url 'listings' %}">Listings</a>
+        <a href="{% url 'library' %}">Library</a>
+        <a href="{% url 'contact' %}" class="active">Contacts</a>
+        <a href="{% url 'deals' %}">Deals</a>
+        <a href="{% url 'marketing' %}">Marketing</a>
+    </nav>
+</header>
+
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="search-container">
+                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="text" placeholder="Search contacts">
+            </div>
+            <button class="sort-btn"><i class="fa-solid fa-arrow-down-wide-short"></i> Sort</button>
+        </div>
+
+        <div class="contact-list">
+            <div class="contact-card">
+                <div class="card-info">
+                    <strong>Bradley Malone</strong>
+                    <small>#EVO-0-232323</small>
+                </div>
+                <div class="card-meta">
+                    <span>+1234349678</span>
+                    <span class="price">AED 5.2M</span>
+                </div>
+            </div>
+
+            <div class="contact-card active">
+                <div class="card-info">
+                    <strong>Jhon Doe</strong>
+                    <small>#EVO-0-232324</small>
+                </div>
+                <div class="card-meta">
+                    <span>+1902345678</span>
+                    <span class="price-white">AED 6.1M</span>
+                </div>
+            </div>
+
+            <div class="contact-card">
+                <div class="card-info">
+                    <strong>Sarah Wilson</strong>
+                    <small>#EVO-0-232325</small>
+                </div>
+                <div class="card-meta">
+                    <span>+1987654321</span>
+                    <span class="price">AED 3.4M</span>
+                </div>
+            </div>
+
+            <div class="contact-card">
+                <div class="card-info">
+                    <strong>Ali Raza</strong>
+                    <small>#EVO-0-232326</small>
+                </div>
+                <div class="card-meta">
+                    <span>+971501234567</span>
+                    <span class="price">AED 4.8M</span>
+                </div>
+            </div>
+
+            <div class="contact-card">
+                <div class="card-info">
+                    <strong>Mariam Khan</strong>
+                    <small>#EVO-0-232327</small>
+                </div>
+                <div class="card-meta">
+                    <span>+971509876543</span>
+                    <span class="price">AED 2.6M</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="content-view">
+        <div class="info-tabs">
+            <button class="tab active"><i class="fa-regular fa-address-card"></i> Contact Information</button>
+            <button class="tab">Agent Information</button>
+        </div>
+
+        <section class="profile-section">
+            <div class="profile-details">
+                <img src="{% static 'images/man2.jpg.jpg' %}" alt="Jhon Doe" class="profile-img">
+                <div class="text-data">
+                    <h3>Jhon Doe <span class="id-tag">#EVO-0-232323</span></h3>
+                    <p><i class="fa-solid fa-phone"></i> +1902345678 &nbsp; <i class="fa-regular fa-envelope"></i> jhondoe@gmail.com</p>
+                    <div class="pills">
+                        <span class="pill">Buyer</span>
+                        <span class="pill">Sale</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="agent-details">
+                <img src="{% static 'images/man1.jpg.jpg' %}" alt="Ahmad Zayn" class="profile-img">
+                <div class="text-data">
+                    <h3>Ahmad Zayn <span class="id-tag">#EVO-0-232323</span></h3>
+                    <p><i class="fa-solid fa-phone"></i> +1908765432 &nbsp; <i class="fa-regular fa-envelope"></i> ahmadzayn@gmail.com</p>
+                    <div class="stats">
+                        <div><strong>10</strong><small>Total Properties</small></div>
+                        <div><strong>5</strong><small>Verified Property</small></div>
+                        <div class="social-icons">
+                            <i class="fa-solid fa-globe"></i>
+                            <i class="fa-brands fa-linkedin"></i>
+                            <i class="fa-brands fa-x-twitter"></i>
+                            <i class="fa-brands fa-facebook-messenger"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="view-toggles">
+            <button class="toggle-btn active">Overview</button>
+            <button class="toggle-btn dark">Contact 360</button>
+        </div>
+
+        <section class="property-gallery">
+            <div class="thumbnail-strip">
+                <img src="{% static 'images/home1.jpg' %}" alt="thumb">
+                <img src="{% static 'images/home2.jpg' %}" alt="thumb">
+                <img src="{% static 'images/home3.jpg' %}" alt="thumb">
+                <img src="{% static 'images/home4.jpg' %}" alt="thumb">
+                <img src="{% static 'images/home5.jpg' %}" alt="thumb">
+            </div>
+
+            <div class="main-property-images">
+                <img src="{% static 'images/home6.jpg' %}" alt="Property 1">
+                <img src="{% static 'images/home7.jpg.jpg' %}" alt="Property 2">
+            </div>
+
+            <div class="property-footer">
+                <h2>AED 6,100,345.00 <small>/Month</small></h2>
+                <button class="view-unit-btn">View Unit <span>&rsaquo;</span></button>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.self !== window.top) {
+      const topNav = document.querySelector(".main-header");
+      if (topNav) topNav.style.display = "none";
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crimson Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="login-container">
+            <div class="login-form-side">
+                <div class="brand">
+                    <div class="brand-logo">
+                        <img src="{% static 'images/crimson1.jpg.png' %}" class="logo-icon" alt="Crimson">
+                    </div>
+                    <span class="brand-name">Crimson</span>
+                </div>
+
+                <h2>Wellcome Back</h2>
+                <p class="subtitle">Let's login to grab amazing deal</p>
+
+                {% if request.GET.registered == "1" %}
+                <p style="color:#0a7a0a; margin:0 0 10px;">Registration successful. Please login.</p>
+                {% endif %}
+                {% if error %}
+                <p style="color:#b42318; margin:0 0 10px;">{{ error }}</p>
+                {% endif %}
+
+                <form action="{% url 'login-page' %}" method="post">
+                    {% csrf_token %}
+                    <div class="social-wrapper">
+                        <button type="button" class="social-btn">
+                            <span class="social-icon">G</span>
+                            Continue with Google
+                        </button>
+                        <button type="button" class="social-btn">
+                            <span class="social-icon">f</span>
+                            Continue with Facebook
+                        </button>
+                    </div>
+
+                    <div class="divider"><span>Or</span></div>
+
+                    <div class="input-field">
+                        <label>User / Email</label>
+                        <input type="text" id="loginUserField" name="user" autocomplete="username" placeholder="username or email" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Password</label>
+                        <div class="password-row">
+                            <input type="password" id="password" name="password" autocomplete="current-password" required>
+                            <span class="eye-icon" onclick="togglePassword()">Show</span>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <label><input type="checkbox"> Remember me</label>
+                        <a
+                          href="mailto:admin@gmail.com?subject=Password%20Reset%20Request"
+                          id="loginForgotPasswordLink"
+                          onclick="return openForgotPasswordEmail(event);"
+                        >
+                          Forgot Password?
+                        </a>
+                    </div>
+
+                    <button type="submit" class="login-submit">Login</button>
+                </form>
+
+                <p class="signup-prompt">Don't have an account? <a href="{% url 'register-page' %}">Sign Up</a></p>
+            </div>
+            <div class="login-image-side">
+                <img src="{% static 'images/loginimage.jpg.png' %}" class="login-img" alt="login">
+                <p class="image-overlay-text">
+                  
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="{% static 'login.js' %}?v=8"></script>
+</html>

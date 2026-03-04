@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task List Dashboard</title>
+  <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/local-icons.css' %}?v=2">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=3">
+  <link rel="stylesheet" href="{% static 'css/Task.css' %}?v=3">
+</head>
+<body class="task-page">
+
+  <header class="topbar">
+    <div class="left">
+      <div class="app-icon"><i class="fa-solid fa-list-check"></i></div>
+      <span>Home / Dashboard / <b>Task List</b></span>
+    </div>
+
+    <div class="right">
+      <div class="task-top-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="taskSearchInput" placeholder="Search subject, type, priority, due date, status">
+      </div>
+      <i class="fa-solid fa-gear"></i>
+      <i class="fa-solid fa-bell"></i>
+      <div class="avatar">CR</div>
+    </div>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul>
+        <li id="dashboardLink"><i class="fa-solid fa-table-columns"></i> Dashboard</li>
+        <li id="crmhomeLink"><i class="fa-solid fa-users"></i> CRM</li>
+        <li class="active"><i class="fa-solid fa-list-check"></i> Task List</li>
+        <li id="projectLink"><i class="fa-solid fa-diagram-project"></i> Project</li>
+        <li id="EstateManagementLink"><i class="fa-solid fa-building"></i> EstateManagement</li>
+        <li id="ReportLink"><i class="fa-solid fa-chart-column"></i> Report</li>
+      </ul>
+    </aside>
+
+    <main class="task-main">
+      <section class="task-board">
+        <div class="task-board-head">
+          <div>
+            <h2>Task List</h2>
+            <p>Plan and track task progress for your team.</p>
+          </div>
+          <div class="task-board-head-actions">
+            <button id="thisWeekBtn" class="chip-btn active" type="button" onclick="showThisWeekDetails()">This Week</button>
+            <button id="myTasksBtn" class="chip-btn" type="button" onclick="showMyTasksDetails()">My Tasks</button>
+          </div>
+        </div>
+
+        <div class="scope-panel" id="scopePanel">
+          <div class="scope-panel-head">
+            <h4 id="scopeTitle">This Week Details</h4>
+            <span id="scopeCount">0 tasks</span>
+          </div>
+          <p id="scopeSummary">Tasks scheduled for the current week.</p>
+          <div id="scopeDetailsList" class="scope-list"></div>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" type="button" onclick="showIncomplete()">Incomplete Task</button>
+          <button class="tab" type="button" onclick="openComplete()">Complete Task</button>
+        </div>
+
+        <div class="task-actions">
+          <span class="mass">Mass Complete</span>
+
+          <div class="right-actions">
+            <button class="btn" type="button" onclick="toggleFilter()">Filter</button>
+
+            <div id="filterBox" style="display:none;">
+              <select id="statusFilter" onchange="applyFilter()">
+                <option value="All">All</option>
+                <option value="Not Started">Not Started</option>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+
+            <button class="add-btn" type="button" onclick="openAddTask()">
+              <i class="fa-solid fa-plus"></i> Add Task
+            </button>
+          </div>
+        </div>
+
+        <div class="task-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Type</th>
+                <th>Priority</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="taskTableBody">
+              <tr data-status="Not Started">
+                <td>
+                  <input type="checkbox">
+                  <div>
+                    <strong>Move in anniversary</strong>
+                    <small>Apr 18 - Send a card (kane, Valerie)</small>
+                  </div>
+                </td>
+                <td>General</td>
+                <td>Normal</td>
+                <td>02/02/2025</td>
+                <td><span class="status">Not Started</span></td>
+                <td><button class="delete-btn" type="button">Delete</button></td>
+              </tr>
+
+              <tr data-status="Pending">
+                <td>
+                  <input type="checkbox">
+                  <div>
+                    <strong>Move in anniversary</strong>
+                    <small>Apr 18 - Send a card</small>
+                  </div>
+                </td>
+                <td>General</td>
+                <td>Normal</td>
+                <td>07/02/2025</td>
+                <td><span class="status pending">Pending</span></td>
+                <td><button class="delete-btn" type="button">Delete</button></td>
+              </tr>
+
+              <tr data-status="Completed">
+                <td>
+                  <input type="checkbox" checked>
+                  <div>
+                    <strong>Mike Smith</strong>
+                    <small>916-977-1991</small>
+                  </div>
+                </td>
+                <td>General</td>
+                <td>Normal</td>
+                <td>27/02/2025</td>
+                <td><span class="status completed">Completed</span></td>
+                <td><button class="delete-btn" type="button">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="contacts-panel">
+        <h3>All Contacts (398)</h3>
+
+        <div class="quick-header">
+          <span>Quick Connects</span>
+          <div class="icons">
+            <i class="fa fa-search"></i>
+            <i class="fa fa-sliders"></i>
+          </div>
+        </div>
+
+        <div class="contact-card big">
+          <span class="sale-badge">Sale</span>
+          <h4>Big Residential</h4>
+          <p class="time">2:30 PM</p>
+          <div class="bottom-row">
+            <button class="chip">Property viewed</button>
+            <span class="plus">+12</span>
+          </div>
+        </div>
+
+        <div class="contact-card small">
+          <div class="top-row">
+            <div class="avatar tiny"></div>
+            <div>
+              <h5>Adams Andrew</h5>
+              <p>Customer Call</p>
+            </div>
+            <div class="action-icons">
+              <i class="fa fa-phone"></i>
+              <i class="fa fa-arrow-up-right-from-square"></i>
+            </div>
+          </div>
+          <div class="bottom-tags">
+            <span class="tag">Jessica Adams</span>
+            <span class="status-text">Created</span>
+          </div>
+        </div>
+
+        <div class="contact-card small">
+          <div class="top-row">
+            <div class="avatar tiny"></div>
+            <div>
+              <h5>Andrew, Sal</h5>
+              <p>Follow up mail</p>
+            </div>
+            <div class="action-icons">
+              <i class="fa fa-phone"></i>
+              <i class="fa fa-arrow-up-right-from-square"></i>
+            </div>
+          </div>
+          <div class="bottom-tags">
+            <span class="tag">Jessica Adams</span>
+            <span class="status-text">Was Assigned</span>
+          </div>
+        </div>
+
+        <div class="contact-card small">
+          <div class="top-row">
+            <div class="avatar tiny"></div>
+            <div>
+              <h5>Araujo, Stan</h5>
+              <p>Follow up mail</p>
+            </div>
+            <div class="action-icons">
+              <i class="fa fa-phone"></i>
+              <i class="fa fa-arrow-up-right-from-square"></i>
+            </div>
+          </div>
+          <div class="bottom-tags">
+            <span class="tag">Pat Attard</span>
+            <span class="status-text">Add Search</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="addTaskModal" class="modal">
+    <div class="modal-content task-modal-content">
+      <button type="button" class="close modal-close" onclick="closeAddModal()">&times;</button>
+
+      <div class="modal-head">
+        <h2>Add Task</h2>
+        <p>Create a task with schedule and status details.</p>
+      </div>
+
+      <form class="task-form modern-task-form" onsubmit="addTask(event)">
+        <div class="task-form-grid">
+          <div class="field with-icon">
+            <label>Subject *</label>
+            <i class="fa-solid fa-list-check"></i>
+            <input type="text" id="subject" name="title" placeholder="Enter task name" required>
+          </div>
+
+          <div class="field with-icon">
+            <label>Type *</label>
+            <i class="fa-solid fa-layer-group"></i>
+            <select id="taskType" name="task_type" required>
+              <option>General</option>
+              <option>Follow Up</option>
+              <option>Site Visit</option>
+              <option>Call</option>
+            </select>
+          </div>
+
+          <div class="field with-icon">
+            <label>Priority *</label>
+            <i class="fa-solid fa-flag"></i>
+            <select id="priority" name="priority" required>
+              <option>Normal</option>
+              <option>High</option>
+              <option>Low</option>
+            </select>
+          </div>
+
+          <div class="field with-icon">
+            <label>Due Date *</label>
+            <i class="fa-regular fa-calendar"></i>
+            <input type="date" id="date" name="due_date" required>
+          </div>
+
+          <div class="field with-icon">
+            <label>Status *</label>
+            <i class="fa-solid fa-signal"></i>
+            <select id="status" name="status" required>
+              <option>Not Started</option>
+              <option>Pending</option>
+              <option>Completed</option>
+            </select>
+          </div>
+
+          <div class="field with-icon full">
+            <label>Description</label>
+            <i class="fa-regular fa-note-sticky"></i>
+            <input type="text" id="taskDescription" name="description" placeholder="Short task details">
+          </div>
+        </div>
+
+        <label class="checkbox-label">
+          <input type="checkbox" id="completed" onchange="toggleCompletedStatus(this)">
+          Mark as completed
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="ghost-btn" onclick="closeAddModal()">Cancel</button>
+          <button type="submit" class="submit-btn"><i class="fa-solid fa-check"></i> Save Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="{% static 'TaskList.js' %}?v=5"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Project</title>
+  <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/local-icons.css' %}?v=3">
+  <link rel="stylesheet" href="{% static 'css/Addproject.css' %}?v=3">
+</head>
+<body class="add-project-page">
+  <div class="add-project-shell">
+    <aside class="add-sidebar">
+      <div class="brand">
+        <div class="logo"><i class="fa-solid fa-diagram-project"></i></div>
+        <div>
+          <strong>Crimson</strong>
+          <small>Project Studio</small>
+        </div>
+      </div>
+
+      <nav>
+        <a href="/index.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+        <a href="/crmhome/"><i class="fa-solid fa-users"></i> CRM</a>
+        <a href="/task-list/"><i class="fa-solid fa-list-check"></i> Task List</a>
+        <a href="/project/" class="active"><i class="fa-solid fa-diagram-project"></i> Project</a>
+        <a href="/estate/"><i class="fa-solid fa-building"></i> Estate Management</a>
+        <a href="/report/"><i class="fa-solid fa-chart-column"></i> Report</a>
+      </nav>
+    </aside>
+
+    <main class="add-main">
+      <header class="add-topbar">
+        <div>
+          <h1>Add New Project</h1>
+          <p>Create project details and return to your dashboard list.</p>
+        </div>
+        <a class="back-link" href="/project/"><i class="fa-solid fa-arrow-left"></i> Back to Projects</a>
+      </header>
+
+      <section class="add-card">
+        <form id="addProjectForm" class="form-grid">
+          <div class="field">
+            <label for="pname">Project Name *</label>
+            <input id="pname" type="text" placeholder="Skyview Tower" required>
+          </div>
+
+          <div class="field">
+            <label for="pdate">Date *</label>
+            <input id="pdate" type="date" required>
+          </div>
+
+          <div class="field">
+            <label for="pfile">File Name *</label>
+            <input id="pfile" type="text" placeholder="site_plan_v1.pdf" required>
+          </div>
+
+          <div class="field">
+            <label for="pchat">Chat Title</label>
+            <input id="pchat" type="text" placeholder="Construction weekly sync">
+          </div>
+
+          <div class="field">
+            <label for="docType">Document Type *</label>
+            <select id="docType" required>
+              <option value="">Select Type</option>
+              <option>PDF Document</option>
+              <option>DOC Document</option>
+              <option>XLS Sheet</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="projectStatus">Project Status *</label>
+            <select id="projectStatus" required>
+              <option value="">Select Status</option>
+              <option>Active</option>
+              <option>In Progress</option>
+              <option>Completed</option>
+              <option>Under Review</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="shareWith">Share With</label>
+            <input id="shareWith" type="text" placeholder="team@company.com, manager@company.com">
+          </div>
+
+          <div class="actions">
+            <a href="/project/" class="btn ghost">Cancel</a>
+            <button type="submit" class="btn primary"><i class="fa-solid fa-check"></i> Save Project</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById("addProjectForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      window.location.href = "/project/";
+    });
+  </script>
+</body>
+</html>
+

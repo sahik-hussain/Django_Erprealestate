@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM Estate Management</title>
+  <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/local-icons.css' %}?v=3">
+  <link rel="stylesheet" href="{% static 'css/estate.css' %}?v=2">
+</head>
+<body class="estate-page">
+
+  <div class="estate-shell">
+    <aside class="estate-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon"><i class="fa-solid fa-building"></i></div>
+        <div>
+          <strong>Crimson</strong>
+          <small>Estate Management</small>
+        </div>
+      </div>
+
+      <ul class="menu">
+        <li id="dashboardLink"><i class="fa-solid fa-table-columns"></i> Dashboard</li>
+        <li id="crmhomeLink"><i class="fa-solid fa-user-group"></i> CRM</li>
+        <li id="TaskListLink"><i class="fa-solid fa-list-check"></i> Task List</li>
+        <li id="projectLink"><i class="fa-solid fa-folder"></i> Project</li>
+        <li class="active"><i class="fa-solid fa-building"></i> Estate Management</li>
+        <li id="ReportLink"><i class="fa-solid fa-chart-line"></i> Report</li>
+      </ul>
+    </aside>
+
+    <main class="estate-main">
+      <header class="estate-topbar">
+        <div class="crumbs">Home / Dashboard / <b>Estate Management</b></div>
+        <div class="top-actions">
+          <select>
+            <option>All Sales Agents</option>
+          </select>
+          <i class="fa-solid fa-bell"></i>
+        </div>
+      </header>
+
+      <div class="search-bar bottom-search">
+        <button type="button"><i class="fa-solid fa-magnifying-glass"></i> Search Property</button>
+        <button class="nav-btn" type="button" onclick="openOtherModal()"><i class="fa-solid fa-users"></i> Other Property</button>
+        <button type="button" onclick="openProjectModal()"><i class="fa-solid fa-building"></i> Project</button>
+        <button type="button"><i class="fa-solid fa-user"></i> Users</button>
+      </div>
+
+      <section class="estate-card" id="addPropertySection">
+        <h2>Add Your Property</h2>
+
+        <form id="myForm" class="estate-form">
+          <div class="form-grid" id="propertyForm">
+            <label>Member</label>
+            <input type="text" id="member" placeholder="Hussain">
+
+            <label>Date</label>
+            <input type="date" id="date">
+
+            <label>Property Type</label>
+            <select id="propertyType">
+              <option value="flat">Flat / Apartment</option>
+              <option value="shop">Shop</option>
+              <option value="villa">House/Villa</option>
+              <option value="land">Land</option>
+            </select>
+
+            <label>Property Condition</label>
+            <select id="propertyCondition">
+              <option>New Property</option>
+            </select>
+
+            <label>Property For</label>
+            <select id="propertyFor">
+              <option>Rent</option>
+              <option>Sales</option>
+            </select>
+
+            <label>Location</label>
+            <input type="text" id="location1" placeholder="1527">
+            <label></label>
+            <input type="text" id="location2" placeholder="State Street">
+            <label></label>
+            <div class="row">
+              <input type="text" id="city" placeholder="Detroit">
+              <input type="text" id="state" placeholder="Michigan">
+            </div>
+            <label></label>
+            <div class="row">
+              <input type="text" id="zip" placeholder="48204">
+              <select id="country">
+                <option>United States</option>
+              </select>
+            </div>
+
+            <label>Total Area (in square feet)</label>
+            <input type="number" id="area" placeholder="1500">
+          </div>
+        </form>
+
+        <button class="submit" id="addPropertyBtn" type="button">Submit</button>
+      </section>
+    </main>
+  </div>
+
+  <div id="otherModal" class="modal" style="display:none;">
+    <div class="modal-box">
+      <span class="close" onclick="closeOtherModal()">&times;</span>
+      <h2>Other Property</h2>
+
+      <div class="modal-layout">
+        <div class="property-card active"
+             data-img="{% static 'images/flat.jpg' %}"
+             data-title="Rent"
+             data-location="4206 State Street Detroit"
+             data-type="Flat / Apartment"
+             data-condition="New Property"
+             data-date="11-Jan-2026"
+             data-landmark="Super Market"
+             data-city="Detroit"
+             data-area="750">
+          <img src="{% static 'images/flat.jpg' %}">
+          <div class="card-info">
+            <strong>Flat / Apartment</strong>
+            <p>4206, State Street</p>
+            <span class="rent">Rent</span>
+            <span class="new">New Property</span>
+          </div>
+        </div>
+
+        <div class="property-card"
+             data-img="{% static 'images/shop.jpg' %}"
+             data-title="Sale"
+             data-location="832 Brentwood Drive"
+             data-type="Shop"
+             data-condition="New Property"
+             data-date="12-Jan-2026"
+             data-landmark="Mall"
+             data-city="Detroit"
+             data-area="500">
+          <img src="{% static 'images/shop.jpg' %}">
+          <div class="card-info">
+            <strong>Shop</strong>
+            <p>832, Brentwood Drive</p>
+            <span class="sale">Sale</span>
+            <span class="new">New Property</span>
+          </div>
+        </div>
+
+        <div class="property-card"
+             data-img="{% static 'images/villa.jpg' %}"
+             data-title="Sale"
+             data-location="1472 Sycamore Lake Road"
+             data-type="House / Villa"
+             data-condition="New Property"
+             data-date="13-Jan-2026"
+             data-landmark="Lake View"
+             data-city="Detroit"
+             data-area="1200">
+          <img src="{% static 'images/villa.jpg' %}">
+          <div class="card-info">
+            <strong>House / Villa</strong>
+            <p>1472, Sycamore Lake Road</p>
+            <span class="sale">Sale</span>
+            <span class="new">New Property</span>
+          </div>
+        </div>
+
+        <div class="property-card"
+             data-img="{% static 'images/land.jpg' %}"
+             data-title="Sale"
+             data-location="2234 Oakmund Road"
+             data-type="Land"
+             data-condition="New Property"
+             data-date="14-Jan-2026"
+             data-landmark="Highway"
+             data-city="Detroit"
+             data-area="2000">
+          <img src="{% static 'images/land.jpg' %}">
+          <div class="card-info">
+            <strong>Land</strong>
+            <p>2234, Oakmund Road</p>
+            <span class="sale">Sale</span>
+            <span class="new">New Property</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-box">
+        <img id="detailImg" src="{% static 'images/flat.jpg' %}">
+        <div>
+          <strong id="detailTitle">Rent</strong>
+          <p id="detailAddress">4206 State Street, Detroit</p>
+        </div>
+      </div>
+
+      <h3 class="section">Property Details</h3>
+
+      <table>
+        <tr><th>Property Type</th><td id="pType">Flat / Apartment</td></tr>
+        <tr><th>Property Condition</th><td id="pCondition">New Property</td></tr>
+        <tr><th>Date</th><td id="pDate">11-Jan-2026</td></tr>
+        <tr><th>Location</th><td id="pLocation">4206 State Street</td></tr>
+        <tr><th>Nearest Landmark</th><td id="pLandmark">Super Market</td></tr>
+        <tr><th>City</th><td id="pCity">Detroit</td></tr>
+        <tr><th>Total Area</th><td id="pArea">750</td></tr>
+        <tr>
+          <th>View Enquiries</th>
+          <td><button class="blue" id="pEnquiryBtn">View Enquiries</button></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div id="projectModal" class="modal">
+    <div class="modal-content large">
+      <span class="close" onclick="closeProjectModal()">&times;</span>
+      <iframe src="/project/" frameborder="0"></iframe>
+    </div>
+  </div>
+
+  <script src="{% static 'estate.js' %}?v=2"></script>
+</body>
+</html>

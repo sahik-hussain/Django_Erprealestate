@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Marketing Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Marketing.css' %}?v=3">
+</head>
+<body>
+<div class="container">
+    <header class="navbar">
+        <nav>
+            <a href="{% url 'crmhome' %}">Home</a>
+            <a href="{% url 'lead' %}">Leads</a>
+            <a href="{% url 'listings' %}">Listings</a>
+            <a href="{% url 'library' %}">Library</a>
+            <a href="{% url 'contact' %}">Contacts</a>
+            <a href="{% url 'deals' %}">Deals</a>
+            <a href="{% url 'marketing' %}" class="active">Marketing <i class="fa-solid fa-chevron-down"></i></a>
+        </nav>
+    </header>
+
+    <main class="content">
+        <section class="hero-banner">
+            <div class="hero-copy">
+                <p class="eyebrow">Performance Control Center</p>
+                <h1 class="page-title">Digital Marketing</h1>
+                <p class="hero-subtitle">Track every channel, compare lead quality, and review month-by-month source performance in one screen.</p>
+            </div>
+            <div class="hero-strip">
+                <div class="strip-item">
+                    <span class="strip-label">Campaigns Running</span>
+                    <span class="strip-value">28</span>
+                </div>
+                <div class="strip-item">
+                    <span class="strip-label">Best Source</span>
+                    <span class="strip-value">Website</span>
+                </div>
+                <div class="strip-item">
+                    <span class="strip-label">Avg. CPL</span>
+                    <span class="strip-value">AED 132</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="cards-grid">
+            <article class="card lead-card">
+                <div class="lead-header">
+                    <img src="{% static 'images/home2.jpg' %}" alt="Property" class="property-img">
+                    <div class="lead-total">
+                        <span class="label">Total Leads</span>
+                        <span class="count">4,612</span>
+                    </div>
+                </div>
+                <div class="lead-details">
+                    <div class="detail-box">
+                        <div class="text">
+                            <span class="num">2,306</span>
+                            <span class="sub">Qualified Leads</span>
+                        </div>
+                        <img src="{% static 'images/home3.jpg' %}" class="mini-thumb" alt="Qualified">
+                    </div>
+                    <div class="detail-box">
+                        <div class="text">
+                            <span class="num">2,306</span>
+                            <span class="sub">Lost Leads</span>
+                        </div>
+                        <img src="{% static 'images/home4.jpg' %}" class="mini-thumb" alt="Lost">
+                    </div>
+                </div>
+            </article>
+
+            <article class="card source-card source-meta">
+                <div class="icon-container meta">
+                    <i class="fab fa-meta"></i>
+                </div>
+                <span class="card-num">65</span>
+                <span class="card-label">Meta</span>
+                <span class="card-delta up">+9% this quarter</span>
+            </article>
+
+            <article class="card source-card source-insta">
+                <div class="icon-container insta">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <span class="card-num">65</span>
+                <span class="card-label">Instagram</span>
+                <span class="card-delta up">+4% this quarter</span>
+            </article>
+
+            <article class="card source-card source-mail">
+                <div class="icon-container mail">
+                    <i class="far fa-envelope"></i>
+                    <span class="badge">?</span>
+                </div>
+                <span class="card-num">65</span>
+                <span class="card-label">Newsletters</span>
+                <span class="card-delta down">-3% this quarter</span>
+            </article>
+
+            <article class="card source-card source-web">
+                <div class="icon-container web">
+                    <i class="fas fa-globe"></i>
+                    <i class="fas fa-arrow-pointer cursor-icon"></i>
+                </div>
+                <span class="card-num">65</span>
+                <span class="card-label">Website</span>
+                <span class="card-delta up">+12% this quarter</span>
+            </article>
+        </section>
+
+        <section class="filters-area">
+            <div class="filter-top">
+                <h2>Digital Marketing Sources <span>(Leads)</span></h2>
+                <div class="year-dropdown-container">
+                    <button class="year-btn" onclick="toggleDropdown()">
+                        <span id="currentYear">2024</span> <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div id="yearDropdown" class="dropdown-content">
+                        <div onclick="selectYear(2025)">2025</div>
+                        <div onclick="selectYear(2024)">2024</div>
+                        <div onclick="selectYear(2023)">2023</div>
+                        <div onclick="selectYear(2022)">2022</div>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-buttons">
+                <button class="active">Leads</button>
+                <button>Qualified Lead Ratio</button>
+                <button>Spend</button>
+                <button>CPL</button>
+                <button>Units Sold</button>
+                <button>Lead to Close Rate</button>
+                <button>Revenue</button>
+                <button>ROI</button>
+            </div>
+        </section>
+
+        <section class="table-panel">
+            <div class="table-panel-head">
+                <h3>Monthly Source Performance</h3>
+                <p>Compare contribution from each marketing channel across all 12 months.</p>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="th-source">Sources</th>
+                            <th>January</th>
+                            <th>February</th>
+                            <th>March</th>
+                            <th>April</th>
+                            <th>May</th>
+                            <th>June</th>
+                            <th>July</th>
+                            <th>August</th>
+                            <th>September</th>
+                            <th>October</th>
+                            <th>November</th>
+                            <th>December</th>
+                            <th class="th-total">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td-source">
+                                <input type="checkbox">
+                                <i class="fab fa-meta icon-meta"></i> <span>Meta</span>
+                            </td>
+                            <td>23</td><td>23</td><td>23</td><td>23</td><td>23</td><td>23</td><td>23</td><td>23</td><td>23</td><td>23</td><td>23</td><td>23</td>
+                            <td class="td-total">276</td>
+                        </tr>
+                        <tr>
+                            <td class="td-source">
+                                <input type="checkbox">
+                                <i class="fab fa-instagram icon-insta"></i> <span>Instagram</span>
+                            </td>
+                            <td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>24</td><td>23</td><td>24</td><td>22</td><td>21</td><td>20</td>
+                            <td class="td-total">269</td>
+                        </tr>
+                        <tr>
+                            <td class="td-source">
+                                <input type="checkbox">
+                                <i class="far fa-envelope icon-mail"></i> <span>Newsletter</span>
+                            </td>
+                            <td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>18</td><td>17</td><td>16</td><td>15</td><td>14</td><td>13</td>
+                            <td class="td-total">192</td>
+                        </tr>
+                        <tr>
+                            <td class="td-source">
+                                <input type="checkbox">
+                                <i class="fas fa-globe icon-web"></i> <span>Website</span>
+                            </td>
+                            <td>31</td><td>30</td><td>32</td><td>34</td><td>33</td><td>35</td><td>36</td><td>34</td><td>33</td><td>31</td><td>30</td><td>29</td>
+                            <td class="td-total">388</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.self !== window.top) {
+      const topNav = document.querySelector(".navbar");
+      if (topNav) topNav.style.display = "none";
+      document.body.classList.add("embedded-view");
+    }
+  });
+</script>
+<script src="{% static 'Marketing.js' %}?v=3"></script>
+</body>
+</html>

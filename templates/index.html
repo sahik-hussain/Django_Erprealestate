@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM Dashboard</title>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/local-icons.css' %}?v=3">
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=3">
+</head>
+<body>
+
+<!-- TOP BAR -->
+    <header class="topbar">
+      <div class="left">
+        <div class="app-icon"><i class="fa-solid fa-people-group"></i></div>
+        <span>Home / Dashboard / <b>Overview</b></span>
+      </div>
+
+      <div class="right">
+        <select>
+          <option>All sales Agents</option>
+        </select>
+        <i class="fa-regular fa-bell"></i>
+        <div class="avatar">CR</div>
+        <div class="brand">
+          <b>CRIMSON</b>
+          <small>Estate Management</small>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <ul>
+        <li id="dashboardLink" class="active" onclick="window.location.href='{% url 'index-html' %}'"><i class="fa-solid fa-table-columns"></i> Dashboard</li>
+        <li id="crmhomeLink"><i class="fa-solid fa-users"></i> CRM</li>
+        <li id="TaskListLink"><i class="fa-solid fa-list-check"></i> Task List</li>
+        <li id="projectLink" class="menu-item">
+          <i class="fa-solid fa-diagram-project"></i>
+          <span>Project</span>
+        </li>
+
+      <li id="estateLink"><i class="fa-solid fa-building"></i> EstateManagement</li>
+        <li id="ReportLink" onclick="window.location.href='/Report.html'"><i class="fa-solid fa-chart-column"></i> Report</li>
+        <li id="AgentLink" onclick="window.location.href='{% url 'agent' %}'"><i class="fa-solid fa-user"></i> Agent</li>
+      </ul>
+    </aside>
+
+
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- ORGANIZATION OVERVIEW -->
+      <h2>Organization Overview</h2>
+      <div class="cards">
+
+        <div class="card">
+          <div class="icon blue"><i class="fa-solid fa-users"></i></div>
+          <p>Total Leads</p>
+          <h3 id="orgTotalLeadsCount">0</h3>
+        </div>
+
+        <div class="card">
+          <div class="icon green"><i class="fa-solid fa-user-plus"></i></div>
+          <p>Fresh Leads</p>
+          <h3 id="orgFreshLeadsCount">0</h3>
+        </div>
+
+        <div class="card">
+          <div class="icon yellow"><i class="fa-solid fa-rotate"></i></div>
+          <p>Returning</p>
+          <h3 id="orgReturningLeadsCount">0</h3>
+        </div>
+        
+        <div class="card" onclick="openUntouchedLeadDetailsModal()">
+          <div class="icon red"><i class="fa-solid fa-ban"></i></div>
+          <p>Untouched</p>
+          <h3 id="orgUntouchedLeadsCount">0</h3>
+        </div>
+
+        <div class="card" onclick="openUnassignedLeadDetailsModal()">
+          <div class="icon gray"><i class="fa-regular fa-circle-question"></i></div>
+          <p>Unassigned</p>
+          <h3 id="unassignedLeadsCount">0</h3>
+        </div>
+
+      </div>
+
+      <!-- MY PERFORMANCE -->
+      <h2>My Performance</h2>
+      <div class="cards small">
+
+        <div class="card" id="myPerformanceLeadsCard" onclick="openTotalLeadDetailsModal()">
+          <div class="icon blue"><i class="fa-solid fa-users"></i></div>
+          <p>Leads</p>
+          <h3 class="blue-text" id="myLeadsCount">0</h3>
+        </div>
+
+        <div class="card" onclick="openFreshLeadDetailsModal()">
+          <div class="icon green"><i class="fa-solid fa-user-plus"></i></div>
+          <p>Fresh Leads</p>
+          <h3 class="blue-text" id="myFreshLeadsCount">0</h3>
+        </div>
+
+        <div class="card" onclick="openReturningLeadDetailsModal()">
+          <div class="icon yellow"><i class="fa-solid fa-rotate"></i></div>
+          <p>Returning</p>
+          <h3 class="blue-text" id="myReturningLeadsCount">0</h3>
+        </div>
+
+        <div class="card" onclick="openTaskPageModal()">
+          <div class="icon purple"><i class="fa-solid fa-clipboard"></i></div>
+          <p>Tasks</p>
+          <h3 class="blue-text" id="myTasksCount">0</h3>
+        </div>
+
+        <div class="card" onclick="openSiteVisitsDetailsModal()">
+          <div class="icon blue"><i class="fa-solid fa-location-dot"></i></div>
+          <p>Site Visits</p>
+          <h3 class="blue-text" id="mySiteVisitsCount">0</h3>
+        </div>
+
+      </div>
+
+      <!-- BOTTOM SECTION -->
+      <div class="bottom">
+
+        <!-- ACTIVITIES -->
+        <div class="activity-card">
+      <h3>Activities Summary <button type="button" onclick="addActivityRecord('Other')" style="margin-left:10px;padding:4px 10px;border:0;border-radius:6px;background:#1e88ff;color:#fff;cursor:pointer;">+ Add</button></h3>
+
+      <div class="activity-grid">
+        <div class="activity-item" onclick="openActivityDetailsModal('Total Activities', [])" style="cursor:pointer;">
+          <div class="icon blue">📋</div>
+          <div>
+            <p class="label">Total Activities</p>
+            <p class="value" id="activitiesTotalCount">0</p>
+          </div>
+        </div>
+
+        <div class="activity-item" onclick="openActivityDetailsModal('Total Meetings', ['Meeting'])" style="cursor:pointer;">
+          <div class="icon pink">👥</div>
+          <div>
+            <p class="label">Total Meetings</p>
+            <p class="value" id="activitiesMeetingCount">0</p>
+          </div>
+        </div>
+
+        <div class="activity-item" onclick="openActivityDetailsModal('Total Call', ['Call'])" style="cursor:pointer;">
+          <div class="icon green">📞</div>
+          <div>
+            <p class="label">Total Call</p>
+            <p class="value" id="activitiesCallCount">0</p>
+          </div>
+        </div>
+
+        <div class="activity-item" onclick="openActivityDetailsModal('Total Mail', ['Mail'])" style="cursor:pointer;">
+          <div class="icon yellow">✉️</div>
+          <div>
+            <p class="label">Total Mail</p>
+            <p class="value" id="activitiesMailCount">0</p>
+          </div>
+        </div>
+
+        <div class="activity-item" onclick="openSiteVisitsDetailsModal()" style="cursor:pointer;">
+          <div class="icon red">📍</div>
+          <div>
+            <p class="label">Total Site Visits</p>
+            <p class="value" id="activitiesSiteVisitsCount">0</p>
+          </div>
+        </div>
+
+        <div class="activity-item" onclick="openActivityDetailsModal('Other', ['Other'])" style="cursor:pointer;">
+          <div class="icon gray">🌐</div>
+          <div>
+            <p class="label">Other</p>
+            <p class="value" id="activitiesOtherCount">0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+        <!-- CALL METRICS -->
+        <div class="box">
+          <h3>Call Metrics</h3>
+
+          <div class="metric">
+            <i class="fa-solid fa-headphones"></i>
+            <label>Total IVR Call</label>
+            <span>45</span>
+            <div class="bar blue"></div>
+          </div>
+
+          <div class="metric">
+            <i class="fa-solid fa-phone"></i>
+            <label>Total Incoming</label>
+            <span>32</span>
+            <div class="bar green"></div>
+          </div>
+
+          <div class="metric">
+            <i class="fa-solid fa-phone-flip"></i>
+            <label>Total Outgoing</label>
+            <span>12</span>
+            <div class="bar yellow"></div>
+          </div>
+
+          <div class="metric">
+            <i class="fa-solid fa-phone-slash"></i>
+            <label>Total Missed</label>
+            <span>1</span>
+            <div class="bar red"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+    </div>
+
+<div id="leadPageModal" class="modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.45); padding:20px 12px;">
+  <div class="modal-box" style="max-width:1200px; height:92vh; margin:0 auto; background:#fff; border-radius:12px; padding:12px; position:relative;">
+    <span class="close" id="leadPageModalClose" onclick="closeLeadPageModal()" style="position:absolute; right:14px; top:8px; font-size:24px; font-weight:700; cursor:pointer; z-index:2;">&times;</span>
+    <iframe
+      id="leadPageFrame"
+      src=""
+      title="Lead Page"
+      style="width:100%; height:100%; border:0; border-radius:10px; margin-top:18px;">
+    </iframe>
+  </div>
+</div>
+
+
+<script src="{% static 'script.js' %}?v=4"></script>
+</body>
+</html>
