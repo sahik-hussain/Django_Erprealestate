@@ -91,7 +91,8 @@ WSGI_APPLICATION = 'Real_estate.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-USE_MYSQL = os.environ.get("USE_MYSQL", "1") == "1"
+# Default to SQLite. Use MySQL only when explicitly enabled with USE_MYSQL=1.
+USE_MYSQL = os.environ.get("USE_MYSQL", "0") == "1"
 MYSQL_SETTINGS = {
     "ENGINE": "django.db.backends.mysql",
     "NAME": os.environ.get("MYSQL_DATABASE", "real_estate_crm1"),
