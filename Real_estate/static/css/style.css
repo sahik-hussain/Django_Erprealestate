@@ -99,9 +99,26 @@ body {
   font-weight: 600;
 }
 
+.login-btn {
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.login-btn:hover {
+  background: #e7f1ff;
+  border-color: #b9d3f1;
+  color: #173b67;
+}
+
 .status-pill i {
   color: #22b86d;
   font-size: 8px;
+}
+
+.login-btn i {
+  color: #29507f;
+  font-size: 13px;
 }
 
 .notify-btn {

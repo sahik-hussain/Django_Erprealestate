@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/local-icons.css' %}?v=4">
 
-  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=7">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=8">
 </head>
 <body>
 
@@ -26,10 +26,10 @@
       </div>
 
       <div class="right">
-        <span class="status-pill">
-          <i class="fa-solid fa-circle"></i>
-          Live Dashboard
-        </span>
+        <a href="/login/" class="status-pill login-btn">
+          <i class="fa-solid fa-user"></i>
+          Login
+        </a>
         <button type="button" class="notify-btn" aria-label="Notifications">
           <i class="fa-regular fa-bell"></i>
         </button>
