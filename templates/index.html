@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
@@ -9,9 +9,9 @@
 
   <!-- Icons -->
   <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/local-icons.css' %}?v=3">
+  <link rel="stylesheet" href="{% static 'css/local-icons.css' %}?v=4">
 
-  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=3">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=7">
 </head>
 <body>
 
@@ -19,18 +19,26 @@
     <header class="topbar">
       <div class="left">
         <div class="app-icon"><i class="fa-solid fa-people-group"></i></div>
-        <span>Home / Dashboard / <b>Overview</b></span>
+        <div class="title-wrap">
+          <span class="crumb-label">CRM Workspace</span>
+          <span class="crumb-path">Home / Dashboard / <b>Overview</b></span>
+        </div>
       </div>
 
       <div class="right">
-        <select>
-          <option>All sales Agents</option>
-        </select>
-        <i class="fa-regular fa-bell"></i>
-        <div class="avatar">CR</div>
-        <div class="brand">
-          <b>CRIMSON</b>
-          <small>Estate Management</small>
+        <span class="status-pill">
+          <i class="fa-solid fa-circle"></i>
+          Live Dashboard
+        </span>
+        <button type="button" class="notify-btn" aria-label="Notifications">
+          <i class="fa-regular fa-bell"></i>
+        </button>
+        <div class="profile-chip">
+          <div class="avatar">CR</div>
+          <div class="brand">
+            <b>CRIMSON</b>
+            <small>Estate Management</small>
+          </div>
         </div>
       </div>
     </header>
@@ -141,7 +149,7 @@
 
       <div class="activity-grid">
         <div class="activity-item" onclick="openActivityDetailsModal('Total Activities', [])" style="cursor:pointer;">
-          <div class="icon blue">📋</div>
+          <div class="icon blue"><i class="fa-solid fa-clipboard-list"></i></div>
           <div>
             <p class="label">Total Activities</p>
             <p class="value" id="activitiesTotalCount">0</p>
@@ -149,7 +157,7 @@
         </div>
 
         <div class="activity-item" onclick="openActivityDetailsModal('Total Meetings', ['Meeting'])" style="cursor:pointer;">
-          <div class="icon pink">👥</div>
+          <div class="icon pink"><i class="fa-solid fa-users"></i></div>
           <div>
             <p class="label">Total Meetings</p>
             <p class="value" id="activitiesMeetingCount">0</p>
@@ -157,7 +165,7 @@
         </div>
 
         <div class="activity-item" onclick="openActivityDetailsModal('Total Call', ['Call'])" style="cursor:pointer;">
-          <div class="icon green">📞</div>
+          <div class="icon green"><i class="fa-solid fa-phone"></i></div>
           <div>
             <p class="label">Total Call</p>
             <p class="value" id="activitiesCallCount">0</p>
@@ -165,7 +173,7 @@
         </div>
 
         <div class="activity-item" onclick="openActivityDetailsModal('Total Mail', ['Mail'])" style="cursor:pointer;">
-          <div class="icon yellow">✉️</div>
+          <div class="icon yellow"><i class="fa-solid fa-envelope"></i></div>
           <div>
             <p class="label">Total Mail</p>
             <p class="value" id="activitiesMailCount">0</p>
@@ -173,7 +181,7 @@
         </div>
 
         <div class="activity-item" onclick="openSiteVisitsDetailsModal()" style="cursor:pointer;">
-          <div class="icon red">📍</div>
+          <div class="icon red"><i class="fa-solid fa-location-dot"></i></div>
           <div>
             <p class="label">Total Site Visits</p>
             <p class="value" id="activitiesSiteVisitsCount">0</p>
@@ -181,7 +189,7 @@
         </div>
 
         <div class="activity-item" onclick="openActivityDetailsModal('Other', ['Other'])" style="cursor:pointer;">
-          <div class="icon gray">🌐</div>
+          <div class="icon gray"><i class="fa-solid fa-globe"></i></div>
           <div>
             <p class="label">Other</p>
             <p class="value" id="activitiesOtherCount">0</p>
@@ -246,3 +254,5 @@
 <script src="{% static 'script.js' %}?v=4"></script>
 </body>
 </html>
+
+

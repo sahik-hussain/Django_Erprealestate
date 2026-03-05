@@ -55,6 +55,64 @@ def can_add_estate(user):
     return Agent.objects.filter(email__iexact=email, is_active=True).exists()
 
 
+def _ensure_default_login_accounts(user_model):
+    """Ensure required default user/agent login accounts exist and are active."""
+    defaults = [
+        {
+            "email": "shaikhussain@gmail.com",
+            "username": "shaikhussain",
+            "password": "crimson@",
+            "is_staff": False,
+            "is_superuser": False,
+        },
+        {
+            "email": "admin@gmail.com",
+            "username": "admin",
+            "password": "Agent@123",
+            "is_staff": True,
+            "is_superuser": True,
+        },
+    ]
+
+    for row in defaults:
+        user_obj = user_model.objects.filter(email__iexact=row["email"]).first()
+        if not user_obj:
+            username = row["username"]
+            if user_model.objects.filter(username__iexact=username).exists():
+                username = _build_unique_username(user_model, username)
+            user_obj = user_model.objects.create_user(
+                username=username,
+                email=row["email"],
+                password=row["password"],
+                is_staff=row["is_staff"],
+                is_superuser=row["is_superuser"],
+                is_active=True,
+            )
+            continue
+
+        changed = []
+        if user_obj.is_staff != row["is_staff"]:
+            user_obj.is_staff = row["is_staff"]
+            changed.append("is_staff")
+        if user_obj.is_superuser != row["is_superuser"]:
+            user_obj.is_superuser = row["is_superuser"]
+            changed.append("is_superuser")
+        if not user_obj.is_active:
+            user_obj.is_active = True
+            changed.append("is_active")
+
+        # Keep default credentials working for these two accounts.
+        if not user_obj.check_password(row["password"]):
+            user_obj.set_password(row["password"])
+            changed.append("password")
+
+        if changed:
+            if "password" in changed:
+                user_obj.save()
+            else:
+                user_obj.save(update_fields=changed)
+
+
 @csrf_exempt
 @ensure_csrf_cookie
 def login(request):
@@ -66,6 +124,7 @@ def login(request):
             return render(request, "login.html", {"error": "Enter username/email and password."})
 
         user_model = get_user_model()
+        _ensure_default_login_accounts(user_model)
         username_candidates = []
         if "@" in identifier:
             user_by_email = user_model.objects.filter(email__iexact=identifier).first()
@@ -99,7 +158,13 @@ def login(request):
             return render(
                 request,
                 "login.html",
-                {"error": "Invalid login credentials. Use username/email. Agent default password is Agent@123."},
+                {
+                    "error": (
+                        "Invalid login credentials. "
+                        "Use username/email. User: shaikhussain@gmail.com / crimson@. "
+                        "Agent default password is Agent@123."
+                    )
+                },
             )
 
         auth_login(request, user)

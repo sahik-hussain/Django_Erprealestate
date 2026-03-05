@@ -31,9 +31,14 @@
 .fa-solid.fa-circle-question::before { content: "?"; font-weight: 700; }
 .fa-regular.fa-circle-question::before { content: "?"; font-weight: 700; }
 .fa-solid.fa-clipboard::before { content: "\1F4CB"; }
+.fa-solid.fa-clipboard-list::before { content: "\1F4CB"; }
 .fa-solid.fa-headphones::before { content: "\1F3A7"; }
 .fa-solid.fa-location-dot::before { content: "\1F4CD"; }
 .fa-regular.fa-location-dot::before { content: "\1F4CD"; }
+.fa-solid.fa-envelope::before { content: "\2709"; }
+.fa-regular.fa-envelope::before { content: "\2709"; }
+.fa-solid.fa-globe::before { content: "\1F310"; }
+.fa-solid.fa-circle::before { content: "\25CF"; }
 .fa-solid.fa-phone-flip::before { content: "\260E"; }
 .fa-solid.fa-phone-slash::before { content: "\1F6AB"; }
 .fa-solid.fa-rotate::before { content: "\21BB"; }
