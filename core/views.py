@@ -1,5 +1,5 @@
 ﻿import json
-from datetime import date
+from datetime import date, datetime
 from functools import wraps
 
 from django.http import HttpResponseNotAllowed, HttpResponseRedirect, JsonResponse
@@ -516,10 +516,33 @@ def report(request):
 def _parse_date(raw_value, field_name):
     if not raw_value:
         return None, None
+    raw_text = str(raw_value).strip()
+    if not raw_text:
+        return None, None
+
+    if isinstance(raw_value, date):
+        return raw_value, None
+
     try:
-        return date.fromisoformat(str(raw_value)), None
+        return date.fromisoformat(raw_text), None
     except ValueError:
-        return None, f"{field_name} must be YYYY-MM-DD"
+        pass
+
+    accepted_formats = (
+        "%d/%m/%Y",
+        "%d-%m-%Y",
+        "%Y/%m/%d",
+        "%d.%m.%Y",
+        "%m/%d/%Y",
+        "%m-%d-%Y",
+    )
+    for fmt in accepted_formats:
+        try:
+            return datetime.strptime(raw_text, fmt).date(), None
+        except ValueError:
+            continue
+
+    return None, f"{field_name} must be a valid date (YYYY-MM-DD, DD/MM/YYYY, or DD-MM-YYYY)"
 
 
 def _build_unique_username(user_model, base_name):

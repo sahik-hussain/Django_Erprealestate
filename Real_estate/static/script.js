@@ -131,6 +131,7 @@ window.goHome = function () { window.location.href = "/crmhome/"; };
 
 
 var cachedLeads = [];
+window.currentActivityView = null;
 
 function normalizeLead(lead) {
   return {
@@ -227,14 +228,19 @@ function renderSiteVisitRows(visits) {
 
 function renderActivityRows(rows) {
   if (!rows || !rows.length) {
-    return "<tr><td colspan='4' style='text-align:center;color:#666;'>No activity data found.</td></tr>";
+    return "<tr><td colspan='5' style='text-align:center;color:#666;'>No activity data found.</td></tr>";
   }
   return rows.map(function (a) {
+    var activityId = Number((a && a.id) || 0);
+    var deleteButton = activityId > 0
+      ? "<button type='button' class='delete-row-btn' onclick='parent.deleteActivityRecord(" + activityId + ")'>Delete</button>"
+      : "-";
     return "<tr>" +
       "<td>" + escHtml(a.title) + "</td>" +
       "<td>" + escHtml(a.activity_type) + "</td>" +
       "<td>" + escHtml(a.activity_date) + "</td>" +
       "<td>" + escHtml(a.notes) + "</td>" +
+      "<td>" + deleteButton + "</td>" +
     "</tr>";
   }).join("");
 }
@@ -246,6 +252,92 @@ function countActivitiesByType(rows, typeName) {
   }).length;
 }
 
+function extractCallTag(text) {
+  var match = String(text || "").match(/\[call:(ivr|incoming|outgoing|missed)\]/i);
+  return match ? String(match[1]).toLowerCase() : "";
+}
+
+function normalizeActivityType(rawType) {
+  var text = String(rawType || "").trim();
+  var lowered = text.toLowerCase();
+  if (!lowered) return "Other";
+  if (lowered === "meeting" || lowered === "call" || lowered === "mail" || lowered === "other") {
+    return lowered.charAt(0).toUpperCase() + lowered.slice(1);
+  }
+  if (
+    lowered.includes("incoming") ||
+    lowered.includes("inbound") ||
+    lowered.includes("outgoing") ||
+    lowered.includes("outbound") ||
+    lowered.includes("missed") ||
+    lowered.includes("no answer") ||
+    lowered.includes("unanswered") ||
+    lowered.includes("ivr")
+  ) {
+    return "Call";
+  }
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+function appendCallTag(notes, callBucket) {
+  var cleanNotes = String(notes || "").trim();
+  var bucket = String(callBucket || "").toLowerCase();
+  if (!bucket || extractCallTag(cleanNotes)) return cleanNotes;
+  var tag = "[call:" + bucket + "]";
+  return cleanNotes ? (tag + " " + cleanNotes) : tag;
+}
+
+function classifyCallMetric(activity) {
+  var notesTag = extractCallTag(activity && activity.notes);
+  if (notesTag) return notesTag;
+  var titleTag = extractCallTag(activity && activity.title);
+  if (titleTag) return titleTag;
+
+  var normalized = (
+    String((activity && activity.title) || "") + " " +
+    String((activity && activity.notes) || "")
+  ).toLowerCase();
+
+  if (normalized.includes("missed") || normalized.includes("no answer") || normalized.includes("unanswered")) {
+    return "missed";
+  }
+  if (normalized.includes("incoming") || normalized.includes("inbound")) {
+    return "incoming";
+  }
+  if (normalized.includes("outgoing") || normalized.includes("outbound")) {
+    return "outgoing";
+  }
+  if (normalized.includes("ivr")) {
+    return "ivr";
+  }
+  return "unknown";
+}
+
+function computeCallMetrics(rows) {
+  var metrics = { total: 0, ivr: 0, incoming: 0, outgoing: 0, missed: 0, unknown: 0 };
+  rows.forEach(function (activity) {
+    if (String((activity && activity.activity_type) || "").toLowerCase() !== "call") return;
+    metrics.total += 1;
+    var bucket = classifyCallMetric(activity);
+    if (bucket === "ivr") metrics.ivr += 1;
+    else if (bucket === "incoming") metrics.incoming += 1;
+    else if (bucket === "outgoing") metrics.outgoing += 1;
+    else if (bucket === "missed") metrics.missed += 1;
+    else metrics.unknown += 1;
+  });
+  return metrics;
+}
+
+function isCallMetricMatch(activity, bucket) {
+  if (String((activity && activity.activity_type) || "").toLowerCase() !== "call") return false;
+  var wanted = String(bucket || "").toLowerCase();
+  var detected = classifyCallMetric(activity);
+  if (wanted === "ivr") {
+    return detected === "ivr" || detected === "unknown";
+  }
+  return detected === wanted;
+}
+
 async function addActivityRecord(defaultType) {
   var title = window.prompt("Enter activity title:");
   if (title === null) return;
@@ -255,16 +347,30 @@ async function addActivityRecord(defaultType) {
     return;
   }
 
-  var activityType = window.prompt("Activity Type (Meeting/Call/Mail/Other):", defaultType || "Other");
-  if (activityType === null) return;
-  activityType = String(activityType || "Other").trim() || "Other";
+  var activityTypeInput = window.prompt("Activity Type (Meeting/Call/Mail/Other):", defaultType || "Other");
+  if (activityTypeInput === null) return;
+  var activityType = normalizeActivityType(activityTypeInput);
 
-  var activityDate = window.prompt("Activity date (YYYY-MM-DD):", "");
+  var callBucket = "";
+  if (activityType === "Call") {
+    var suggestedCallType = classifyCallMetric({ title: activityTypeInput, notes: activityTypeInput });
+    if (suggestedCallType === "unknown") suggestedCallType = "incoming";
+    var callTypeInput = window.prompt("Call category (IVR/Incoming/Outgoing/Missed):", suggestedCallType);
+    if (callTypeInput === null) return;
+    callBucket = classifyCallMetric({ title: callTypeInput, notes: callTypeInput });
+    if (callBucket === "unknown") callBucket = "incoming";
+  }
+
+  var activityDate = window.prompt("Activity date (YYYY-MM-DD or DD/MM/YYYY):", "");
   if (activityDate === null) return;
   activityDate = String(activityDate || "").trim();
 
   var notes = window.prompt("Notes (optional):", "");
   if (notes === null) return;
+  var payloadNotes = notes || "";
+  if (activityType === "Call" && callBucket) {
+    payloadNotes = appendCallTag(payloadNotes, callBucket);
+  }
 
   try {
     var res = await fetch("/api/activities", {
@@ -274,7 +380,7 @@ async function addActivityRecord(defaultType) {
         title: title,
         activity_type: activityType,
         activity_date: activityDate,
-        notes: notes || "",
+        notes: payloadNotes,
       })
     });
     if (!res.ok) {
@@ -288,7 +394,45 @@ async function addActivityRecord(defaultType) {
   }
 }
 
+async function deleteActivityRecord(activityId) {
+  var id = Number(activityId);
+  if (!id) return;
+
+  var allowed = window.confirm("Delete this activity?");
+  if (!allowed) return;
+
+  try {
+    var res = await fetch("/api/activities/" + id, { method: "DELETE" });
+    if (!res.ok) {
+      var txt = await res.text();
+      throw new Error(txt || "Delete failed");
+    }
+
+    await updateDashboardCounts();
+
+    var view = window.currentActivityView || {};
+    if (view.mode === "types") {
+      await openActivityDetailsModal(view.title || "Total Activities", Array.isArray(view.types) ? view.types : []);
+      return;
+    }
+    if (view.mode === "bucket") {
+      await openCallMetricDetailsModal(view.title || "Call Activities", view.bucket || "ivr");
+      return;
+    }
+
+    alert("Activity deleted.");
+  } catch (e) {
+    alert("Unable to delete activity: " + (e.message || "Unknown error"));
+  }
+}
+
 async function openActivityDetailsModal(title, types) {
+  window.currentActivityView = {
+    mode: "types",
+    title: String(title || "Activities"),
+    types: Array.isArray(types) ? types.slice() : []
+  };
+
   var modal = document.getElementById("leadPageModal");
   var frame = document.getElementById("leadPageFrame");
   if (modal) modal.style.display = "block";
@@ -325,12 +469,69 @@ async function openActivityDetailsModal(title, types) {
       "table{width:100%;border-collapse:collapse;}" +
       "th,td{border:1px solid #e3e3e3;padding:10px;text-align:left;}" +
       "th{background:#f8faff;}" +
+      ".delete-row-btn{padding:6px 10px;border:0;border-radius:6px;background:#ef4444;color:#fff;cursor:pointer;font-size:12px;}" +
+      ".delete-row-btn:hover{background:#dc2626;}" +
+      "td:last-child{text-align:center;}" +
       "</style></head><body>" +
       "<h2>" + escHtml(title) + " Details</h2>" +
       "<div class='top'><div class='chip'>Total: " + filtered.length + "</div>" +
       "<button onclick=\"parent.addActivityRecord('" + escHtml((types && types[0]) || "Other") + "')\">+ Add Activity</button></div>" +
       "<table><thead><tr>" +
-      "<th>Title</th><th>Type</th><th>Date</th><th>Notes</th>" +
+      "<th>Title</th><th>Type</th><th>Date</th><th>Notes</th><th>Action</th>" +
+      "</tr></thead><tbody>" + rows + "</tbody></table>" +
+      "</body></html>";
+  } catch (e) {
+    frame.srcdoc = "<!DOCTYPE html><html><body style='font-family:Segoe UI,Arial,sans-serif;margin:20px;color:#b00020;'>Unable to load activity details.</body></html>";
+  }
+}
+
+async function openCallMetricDetailsModal(title, bucket) {
+  window.currentActivityView = {
+    mode: "bucket",
+    title: String(title || "Call Activities"),
+    bucket: String(bucket || "ivr")
+  };
+
+  var modal = document.getElementById("leadPageModal");
+  var frame = document.getElementById("leadPageFrame");
+  if (modal) modal.style.display = "block";
+  if (!frame) return;
+
+  frame.src = "about:blank";
+  frame.srcdoc = "<!DOCTYPE html><html><body style='font-family:Segoe UI,Arial,sans-serif;margin:20px;'>Loading activity details...</body></html>";
+
+  try {
+    var res = await fetch("/api/activities", { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to load activities");
+    var allRows = await res.json();
+    var safeRows = Array.isArray(allRows) ? allRows : [];
+    var filtered = safeRows.filter(function (a) {
+      return isCallMetricMatch(a, bucket);
+    });
+    var rows = renderActivityRows(filtered);
+    frame.srcdoc = "<!DOCTYPE html>" +
+      "<html lang='en'><head>" +
+      "<meta charset='UTF-8' />" +
+      "<meta name='viewport' content='width=device-width, initial-scale=1.0' />" +
+      "<title>" + escHtml(title) + "</title>" +
+      "<style>" +
+      "body{font-family:Segoe UI,Arial,sans-serif;margin:20px;color:#222;}" +
+      "h2{margin:0 0 14px 0;}" +
+      ".top{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:10px;}" +
+      ".chip{display:inline-block;padding:6px 10px;border-radius:999px;background:#e7f2ff;color:#1e88ff;font-weight:600;}" +
+      "button{padding:7px 12px;border:0;border-radius:6px;background:#1e88ff;color:#fff;cursor:pointer;}" +
+      "table{width:100%;border-collapse:collapse;}" +
+      "th,td{border:1px solid #e3e3e3;padding:10px;text-align:left;}" +
+      "th{background:#f8faff;}" +
+      ".delete-row-btn{padding:6px 10px;border:0;border-radius:6px;background:#ef4444;color:#fff;cursor:pointer;font-size:12px;}" +
+      ".delete-row-btn:hover{background:#dc2626;}" +
+      "td:last-child{text-align:center;}" +
+      "</style></head><body>" +
+      "<h2>" + escHtml(title) + " Details</h2>" +
+      "<div class='top'><div class='chip'>Total: " + filtered.length + "</div>" +
+      "<button onclick=\"parent.addActivityRecord('Call')\">+ Add Activity</button></div>" +
+      "<table><thead><tr>" +
+      "<th>Title</th><th>Type</th><th>Date</th><th>Notes</th><th>Action</th>" +
       "</tr></thead><tbody>" + rows + "</tbody></table>" +
       "</body></html>";
   } catch (e) {
@@ -348,6 +549,25 @@ function countByStatus(leads, statusName) {
 function setText(id, value) {
   var el = document.getElementById(id);
   if (el) el.textContent = String(value);
+}
+
+function setPercentage(id, count, total) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var safeCount = Number(count) || 0;
+  var safeTotal = Number(total) || 0;
+  var pct = safeTotal > 0 ? Math.round((safeCount / safeTotal) * 100) : 0;
+  el.textContent = String(pct) + "%";
+}
+
+function setMetricBarWidth(id, count, total) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var safeCount = Number(count) || 0;
+  var safeTotal = Number(total) || 0;
+  var pct = safeTotal > 0 ? (safeCount / safeTotal) * 100 : 0;
+  var clamped = Math.max(0, Math.min(100, pct));
+  el.style.width = String(clamped.toFixed(1)) + "%";
 }
 
 async function updateDashboardCounts() {
@@ -377,10 +597,19 @@ async function updateDashboardCounts() {
   var siteVisitCount = Array.isArray(siteVisits) ? siteVisits.length : (summary.site_visits || 0);
   var safeActivities = Array.isArray(activities) ? activities : [];
   var activitiesTotal = safeActivities.length || (summary.activities_total || 0);
-  var activitiesMeeting = countActivitiesByType(safeActivities, "meeting") || (summary.activities_meeting || 0);
   var activitiesCall = countActivitiesByType(safeActivities, "call") || (summary.activities_call || 0);
   var activitiesMail = countActivitiesByType(safeActivities, "mail") || (summary.activities_mail || 0);
+  var activitiesMeeting = countActivitiesByType(safeActivities, "meeting") || (summary.activities_meeting || 0);
   var activitiesOther = countActivitiesByType(safeActivities, "other") || (summary.activities_other || 0);
+  var callMetrics = computeCallMetrics(safeActivities);
+  var totalCalls = callMetrics.total || activitiesCall;
+  var ivrCalls = callMetrics.ivr + callMetrics.unknown;
+  if (!callMetrics.total && totalCalls > 0) {
+    ivrCalls = totalCalls;
+  }
+  var incomingCalls = callMetrics.incoming;
+  var outgoingCalls = callMetrics.outgoing;
+  var missedCalls = callMetrics.missed;
 
   setText("orgTotalLeadsCount", total);
   setText("orgFreshLeadsCount", fresh);
@@ -395,10 +624,27 @@ async function updateDashboardCounts() {
   setText("mySiteVisitsCount", siteVisitCount);
   setText("activitiesTotalCount", activitiesTotal);
   setText("activitiesMeetingCount", activitiesMeeting);
+  setText("activitiesIvrCount", ivrCalls);
   setText("activitiesCallCount", activitiesCall);
   setText("activitiesMailCount", activitiesMail);
   setText("activitiesSiteVisitsCount", siteVisitCount);
   setText("activitiesOtherCount", activitiesOther);
+  setText("activitiesMissedCount", missedCalls);
+  setText("callMetricsIvrCount", ivrCalls);
+  setText("callMetricsIncomingCount", incomingCalls);
+  setText("callMetricsOutgoingCount", outgoingCalls);
+  setText("callMetricsMissedCount", missedCalls);
+  setText("callMetricsTotalCount", totalCalls);
+
+  setPercentage("callMetricsIvrPct", ivrCalls, totalCalls);
+  setPercentage("callMetricsIncomingPct", incomingCalls, totalCalls);
+  setPercentage("callMetricsOutgoingPct", outgoingCalls, totalCalls);
+  setPercentage("callMetricsMissedPct", missedCalls, totalCalls);
+
+  setMetricBarWidth("callMetricsIvrBar", ivrCalls, totalCalls);
+  setMetricBarWidth("callMetricsIncomingBar", incomingCalls, totalCalls);
+  setMetricBarWidth("callMetricsOutgoingBar", outgoingCalls, totalCalls);
+  setMetricBarWidth("callMetricsMissedBar", missedCalls, totalCalls);
 }
 
 function openLeadPageModal() {

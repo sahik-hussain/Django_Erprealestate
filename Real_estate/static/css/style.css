@@ -375,49 +375,110 @@ body {
   margin-bottom: 14px;
 }
 
-.metric {
+.call-metrics-box {
+  background: linear-gradient(165deg, #f7faff 0%, #eef4ff 100%);
+}
+
+.call-metrics-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   margin-bottom: 12px;
 }
 
-.metric i {
-  margin-right: 6px;
+.call-metrics-total {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid #d9e5f8;
   color: var(--ink-700);
+  font-size: 12px;
 }
 
-.metric label {
+.call-metrics-total b {
+  color: var(--accent);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.metric {
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #dde7f7;
+  background: #fff;
+}
+
+.metric:last-child {
+  margin-bottom: 0;
+}
+
+.metric-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.metric-label {
   color: var(--ink-700);
   font-size: 14px;
+  font-weight: 600;
 }
 
-.metric span {
-  float: right;
+.metric-label i {
+  margin-right: 6px;
+}
+
+.metric-values {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.metric-values span {
   color: var(--ink-900);
   font-weight: 700;
+  font-size: 16px;
 }
 
-.bar {
-  height: 7px;
+.metric-values small {
+  color: var(--ink-500);
+  font-size: 12px;
+}
+
+.bar-track {
+  height: 8px;
+  background: #e8eef9;
   border-radius: 999px;
   margin-top: 8px;
+  overflow: hidden;
 }
 
-.bar.blue {
-  width: 90%;
+.bar-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  transition: width 350ms ease;
+}
+
+.bar-fill.blue {
   background: linear-gradient(90deg, #2b7fff, #1f6feb);
 }
 
-.bar.green {
-  width: 70%;
+.bar-fill.green {
   background: linear-gradient(90deg, #39b870, #1d9f5f);
 }
 
-.bar.yellow {
-  width: 40%;
+.bar-fill.yellow {
   background: linear-gradient(90deg, #ffcf54, #f2b01e);
 }
 
-.bar.red {
-  width: 10%;
+.bar-fill.red {
   background: linear-gradient(90deg, #ff7c7c, #ea4e4e);
 }
 
@@ -543,6 +604,11 @@ body {
 
   .activity-grid {
     grid-template-columns: 1fr;
+  }
+
+  .call-metrics-head {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 

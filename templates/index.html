@@ -156,11 +156,11 @@
           </div>
         </div>
 
-        <div class="activity-item" onclick="openActivityDetailsModal('Total Meetings', ['Meeting'])" style="cursor:pointer;">
-          <div class="icon pink"><i class="fa-solid fa-users"></i></div>
+        <div class="activity-item" onclick="openCallMetricDetailsModal('Total IVR Call', 'ivr')" style="cursor:pointer;">
+          <div class="icon blue"><i class="fa-solid fa-headphones"></i></div>
           <div>
-            <p class="label">Total Meetings</p>
-            <p class="value" id="activitiesMeetingCount">0</p>
+            <p class="label">Total IVR Call</p>
+            <p class="value" id="activitiesIvrCount">0</p>
           </div>
         </div>
 
@@ -188,11 +188,11 @@
           </div>
         </div>
 
-        <div class="activity-item" onclick="openActivityDetailsModal('Other', ['Other'])" style="cursor:pointer;">
-          <div class="icon gray"><i class="fa-solid fa-globe"></i></div>
+        <div class="activity-item" onclick="openCallMetricDetailsModal('Total Missed', 'missed')" style="cursor:pointer;">
+          <div class="icon red"><i class="fa-solid fa-phone-slash"></i></div>
           <div>
-            <p class="label">Other</p>
-            <p class="value" id="activitiesOtherCount">0</p>
+            <p class="label">Total Missed</p>
+            <p class="value" id="activitiesMissedCount">0</p>
           </div>
         </div>
       </div>
@@ -200,37 +200,46 @@
 
 
         <!-- CALL METRICS -->
-        <div class="box">
-          <h3>Call Metrics</h3>
-
-          <div class="metric">
-            <i class="fa-solid fa-headphones"></i>
-            <label>Total IVR Call</label>
-            <span>45</span>
-            <div class="bar blue"></div>
+        <div class="box call-metrics-box">
+          <div class="call-metrics-head">
+            <h3>Call Metrics</h3>
+            <div class="call-metrics-total">
+              <span>Total Calls</span>
+              <b id="callMetricsTotalCount">0</b>
+            </div>
           </div>
 
-          <div class="metric">
-            <i class="fa-solid fa-phone"></i>
-            <label>Total Incoming</label>
-            <span>32</span>
-            <div class="bar green"></div>
+          <div class="metric metric-blue" onclick="openCallMetricDetailsModal('Total IVR Call', 'ivr')" style="cursor:pointer;">
+            <div class="metric-line">
+              <div class="metric-label"><i class="fa-solid fa-headphones"></i> Total IVR Call</div>
+              <div class="metric-values"><span id="callMetricsIvrCount">0</span><small id="callMetricsIvrPct">0%</small></div>
+            </div>
+            <div class="bar-track"><div class="bar-fill blue" id="callMetricsIvrBar"></div></div>
           </div>
 
-          <div class="metric">
-            <i class="fa-solid fa-phone-flip"></i>
-            <label>Total Outgoing</label>
-            <span>12</span>
-            <div class="bar yellow"></div>
+          <div class="metric metric-green" onclick="openCallMetricDetailsModal('Total Incoming', 'incoming')" style="cursor:pointer;">
+            <div class="metric-line">
+              <div class="metric-label"><i class="fa-solid fa-phone"></i> Total Incoming</div>
+              <div class="metric-values"><span id="callMetricsIncomingCount">0</span><small id="callMetricsIncomingPct">0%</small></div>
+            </div>
+            <div class="bar-track"><div class="bar-fill green" id="callMetricsIncomingBar"></div></div>
           </div>
 
-          <div class="metric">
-            <i class="fa-solid fa-phone-slash"></i>
-            <label>Total Missed</label>
-            <span>1</span>
-            <div class="bar red"></div>
+          <div class="metric metric-yellow" onclick="openCallMetricDetailsModal('Total Outgoing', 'outgoing')" style="cursor:pointer;">
+            <div class="metric-line">
+              <div class="metric-label"><i class="fa-solid fa-phone-flip"></i> Total Outgoing</div>
+              <div class="metric-values"><span id="callMetricsOutgoingCount">0</span><small id="callMetricsOutgoingPct">0%</small></div>
+            </div>
+            <div class="bar-track"><div class="bar-fill yellow" id="callMetricsOutgoingBar"></div></div>
           </div>
 
+          <div class="metric metric-red" onclick="openCallMetricDetailsModal('Total Missed', 'missed')" style="cursor:pointer;">
+            <div class="metric-line">
+              <div class="metric-label"><i class="fa-solid fa-phone-slash"></i> Total Missed</div>
+              <div class="metric-values"><span id="callMetricsMissedCount">0</span><small id="callMetricsMissedPct">0%</small></div>
+            </div>
+            <div class="bar-track"><div class="bar-fill red" id="callMetricsMissedBar"></div></div>
+          </div>
         </div>
 
       </div>
@@ -251,7 +260,7 @@
 </div>
 
 
-<script src="{% static 'script.js' %}?v=4"></script>
+<script src="{% static 'script.js' %}?v=7"></script>
 </body>
 </html>
 
